@@ -64,6 +64,22 @@ public class PoorDemandItem {
 	public void setPoorDemandItemStatus(int poorDemandItemStatus) {
 		this.poorDemandItemStatus = poorDemandItemStatus;
 	}
+
+	/**
+	 * toString()方法
+	 */
+	@Override
+	public String toString() {
+		return "PoorDemandItem [demandID=" + demandID + ", demandName="
+				+ demandName + ", demandDescript=" + demandDescript
+				+ ", poorDemandItemStatus=" + poorDemandItemStatus
+				+ ", getDemandID()=" + getDemandID() + ", getDemandName()="
+				+ getDemandName() + ", getDemandDescript()="
+				+ getDemandDescript() + ", getPoorDemandItemStatus()="
+				+ getPoorDemandItemStatus() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
 	
 	
 	

@@ -212,6 +212,34 @@ public class Applicant {
 	public void setApplicantReason(String applicantReason) {
 		this.applicantReason = applicantReason;
 	}
+
+	
+	/**
+	 * toString()方法
+	 */
+	@Override
+	public String toString() {
+		return "Applicant [applicantID=" + applicantID + ", applicantName="
+				+ applicantName + ", applicantSex=" + applicantSex
+				+ ", applicantNation=" + applicantNation
+				+ ", applicantIdNumber=" + applicantIdNumber
+				+ ", applicantDisabilityNumber=" + applicantDisabilityNumber
+				+ ", applicantAddress=" + applicantAddress
+				+ ", applicantFamilyNumber=" + applicantFamilyNumber
+				+ ", applicantDisablityCondition="
+				+ applicantDisablityCondition + ", applicantPhone="
+				+ applicantPhone + ", applicantIncome=" + applicantIncome
+				+ ", houseArea=" + houseArea + ", education=" + education
+				+ ", marriage=" + marriage + ", applicantTime=" + applicantTime
+				+ ", povertyRank=" + povertyRank + ", applicantStatus="
+				+ applicantStatus + ", bankCardNumber=" + bankCardNumber
+				+ ", applicantReason=" + applicantReason + "]";
+	}
+	
+	
+	
+	
+	
 	
 	
 

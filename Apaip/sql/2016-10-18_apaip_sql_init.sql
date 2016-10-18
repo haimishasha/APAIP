@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50541
 File Encoding         : 65001
 
-Date: 2016-10-18 12:10:55
+Date: 2016-10-18 12:38:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `alleviation_result` (
   `alleviationStartTime2` date DEFAULT NULL,
   `alleviationEndTime2` date DEFAULT NULL,
   `resultDescription` varchar(50) DEFAULT NULL,
-  `alleviationStatus` varchar(20) DEFAULT NULL,
+  `alleviationStatus` int(11) DEFAULT '1',
   PRIMARY KEY (`alleviationResultID`),
   KEY `FK_Relationship_7` (`applicantID`),
   CONSTRAINT `FK_Relationship_7` FOREIGN KEY (`applicantID`) REFERENCES `applicant_info` (`applicantID`)
@@ -78,7 +78,7 @@ CREATE TABLE `applicant_info` (
   `marriage` varchar(20) DEFAULT NULL,
   `applicationTime` date DEFAULT NULL,
   `povertyRank` varchar(20) DEFAULT NULL,
-  `applicantStatus` int(11) DEFAULT NULL,
+  `applicantStatus` int(11) DEFAULT '1',
   `bankCardNumber` varchar(20) DEFAULT NULL,
   `applicantReason` text,
   PRIMARY KEY (`applicantID`)
@@ -97,6 +97,7 @@ CREATE TABLE `dictionary` (
   `dicName` varchar(50) DEFAULT NULL,
   `dicType` varchar(30) DEFAULT NULL,
   `dicDescription` varchar(100) DEFAULT NULL,
+  `dicDelFlag` int(11) DEFAULT '1',
   PRIMARY KEY (`dicID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -113,7 +114,7 @@ CREATE TABLE `message_info` (
   `message_content` varchar(200) DEFAULT NULL,
   `message_time` varchar(30) DEFAULT NULL,
   `message_people` varchar(20) DEFAULT NULL,
-  `message_status` int(11) DEFAULT NULL,
+  `message_status` int(11) DEFAULT '1',
   PRIMARY KEY (`message_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -148,7 +149,7 @@ CREATE TABLE `poor_demand_item` (
   `demandID` int(11) NOT NULL AUTO_INCREMENT,
   `demandName` varchar(20) DEFAULT NULL,
   `demandDescription` varchar(100) DEFAULT NULL,
-  `poorDemandItemStatus` int(11) DEFAULT NULL,
+  `poorDemandItemStatus` int(11) DEFAULT '1',
   PRIMARY KEY (`demandID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -169,6 +170,7 @@ CREATE TABLE `poverty_measure` (
   `budgetAmount` double DEFAULT NULL,
   `measureContent` varchar(50) DEFAULT NULL,
   `measureTime` date DEFAULT NULL,
+  `measureStatus` int(11) DEFAULT '1',
   PRIMARY KEY (`measureID`),
   KEY `FK_Relationship_4` (`planID`),
   CONSTRAINT `FK_Relationship_4` FOREIGN KEY (`planID`) REFERENCES `poverty_plan` (`planID`)
@@ -212,7 +214,7 @@ CREATE TABLE `selection_notes` (
   `applyStartTime` date DEFAULT NULL,
   `applyEndTime` date DEFAULT NULL,
   `applyContent` text,
-  `applyStatus` int(11) DEFAULT NULL,
+  `applyStatus` int(11) DEFAULT '1',
   PRIMARY KEY (`selectionNotesID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -233,7 +235,7 @@ CREATE TABLE `user` (
   `IDCard` varchar(20) DEFAULT NULL,
   `userPhone` varchar(15) DEFAULT NULL,
   `userAddr` varchar(50) DEFAULT NULL,
-  `userStatus` int(11) DEFAULT NULL,
+  `userStatus` int(11) DEFAULT '1',
   PRIMARY KEY (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

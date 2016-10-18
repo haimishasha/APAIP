@@ -51,6 +51,21 @@ public class PoorDemandCondition {
 	public void setApplicantID(String applicantID) {
 		this.applicantID = applicantID;
 	}
+
+	/**
+	 * toString ()方法
+	 */
+	@Override
+	public String toString() {
+		return "PoorDemandCondition [poorDemandConditionID="
+				+ poorDemandConditionID + ", demandID=" + demandID
+				+ ", applicantID=" + applicantID
+				+ ", getPoorDemandConditionID()=" + getPoorDemandConditionID()
+				+ ", getDemandID()=" + getDemandID() + ", getApplicantID()="
+				+ getApplicantID() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
 	
 	
 	

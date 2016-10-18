@@ -119,6 +119,28 @@ public class SelectionNotes {
 	public void setApplyStatus(int applyStatus) {
 		this.applyStatus = applyStatus;
 	}
+
+	/**
+	 * toString()方法
+	 */
+	@Override
+	public String toString() {
+		return "SelectionNotes [selectionNotesID=" + selectionNotesID
+				+ ", notesName=" + notesName + ", applyStartTime="
+				+ applyStartTime + ", applyEndTime=" + applyEndTime
+				+ ", applyContent=" + applyContent + ", applyPerson="
+				+ applyPerson + ", applyTime=" + applyTime + ", applyStatus="
+				+ applyStatus + ", getSelectionNotesID()="
+				+ getSelectionNotesID() + ", getNotesName()=" + getNotesName()
+				+ ", getApplyStartTime()=" + getApplyStartTime()
+				+ ", getApplyEndTime()=" + getApplyEndTime()
+				+ ", getApplyContent()=" + getApplyContent()
+				+ ", getApplyPerson()=" + getApplyPerson()
+				+ ", getApplyTime()=" + getApplyTime() + ", getApplyStatus()="
+				+ getApplyStatus() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
 	
 	
 	
