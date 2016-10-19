@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * 公共方法
- * @author zs
+ * @author zhangjian
  *
  */
 public class Tools {
@@ -47,6 +47,18 @@ public class Tools {
 		}
 		return str;
 
+	}
+	/**
+	 * 获得分页查询的首选项
+	 * @param a
+	 * @return int
+	 */
+	
+	
+	
+	public static int getStartRecord(int currentpage){
+		int startnum =10*(currentpage-1)+1; 
+		return startnum;
 	}
 	
 	

@@ -1,6 +1,11 @@
 package com.cdsecond.bean;
 
 public class PovertyMeasure {
+	/**
+	 * @author zhangjian
+ * 说明：扶贫措施类
+ * 		这个类描述了扶贫措施的属性跟set、get方法
+	 */
 	private String measureID;//措施ID
 	public PovertyMeasure(String measureID, int planID, String measureName,
 			int poorNumber, String poorVillage, String measureContent,

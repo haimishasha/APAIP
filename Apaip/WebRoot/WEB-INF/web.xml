@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>Apaip</display-name>
+  <servlet>
+    <description>my first servlet</description>
+    <display-name>my first servlet</display-name>
+    <servlet-name>DictionaryServlet</servlet-name>
+    <servlet-class>com.cdsecond.servlet.DictionaryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>my first servlet</description>
+    <display-name>my first servlet</display-name>
+    <servlet-name>PovertyMeasureSevlet</servlet-name>
+    <servlet-class>com.cdsecond.servlet.PovertyMeasureSevlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>my first servlet</description>
+    <display-name>my first servlet</display-name>
+    <servlet-name>PovertyPlanServlet</servlet-name>
+    <servlet-class>com.cdsecond.servlet.PovertyPlanServlet</servlet-class>
+  </servlet>
+
+
+
+  <servlet-mapping>
+    <servlet-name>DictionaryServlet</servlet-name>
+    <url-pattern>/DictionaryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PovertyMeasureSevlet</servlet-name>
+    <url-pattern>/PovertyMeasureSevlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PovertyPlanServlet</servlet-name>
+    <url-pattern>/PovertyPlanServlet</url-pattern>
+  </servlet-mapping>
+
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
