@@ -31,19 +31,19 @@ public class Applicant {
 	
 	private String applicantPhone;		//联系方式
 	
-	private String applicantIncome;		//家庭收入
+	private double applicantIncome;		//家庭收入
 	
-	private float houseArea;			//住房面积
+	private double houseArea;			//住房面积
 	
 	private String education;			//受教育程度
 	
 	private String marriage;			//婚姻状况
 	
-	private String applicantTime;		//申请时间
+	private String applicationTime;		//申请时间
 	
 	private String povertyRank;			//贫困等级
 	
-	private String applicantStatus;		//申请人状态
+	private int applicantStatus;		//申请人状态
 	
 	private String bankCardNumber;		//银行卡号
 	
@@ -141,19 +141,19 @@ public class Applicant {
 		this.applicantPhone = applicantPhone;
 	}
 
-	public String getApplicantIncome() {
+	public double getApplicantIncome() {
 		return applicantIncome;
 	}
 
-	public void setApplicantIncome(String applicantIncome) {
+	public void setApplicantIncome(double applicantIncome) {
 		this.applicantIncome = applicantIncome;
 	}
 
-	public float getHouseArea() {
+	public double getHouseArea() {
 		return houseArea;
 	}
 
-	public void setHouseArea(float houseArea) {
+	public void setHouseArea(double houseArea) {
 		this.houseArea = houseArea;
 	}
 
@@ -174,11 +174,11 @@ public class Applicant {
 	}
 
 	public String getApplicantTime() {
-		return applicantTime;
+		return applicationTime;
 	}
 
-	public void setApplicantTime(String applicantTime) {
-		this.applicantTime = applicantTime;
+	public void setApplicantTime(String applicationTime) {
+		this.applicationTime = applicationTime;
 	}
 
 	public String getPovertyRank() {
@@ -189,11 +189,11 @@ public class Applicant {
 		this.povertyRank = povertyRank;
 	}
 
-	public String getApplicantStatus() {
+	public int getApplicantStatus() {
 		return applicantStatus;
 	}
 
-	public void setApplicantStatus(String applicantStatus) {
+	public void setApplicantStatus(int applicantStatus) {
 		this.applicantStatus = applicantStatus;
 	}
 
@@ -230,7 +230,7 @@ public class Applicant {
 				+ applicantDisablityCondition + ", applicantPhone="
 				+ applicantPhone + ", applicantIncome=" + applicantIncome
 				+ ", houseArea=" + houseArea + ", education=" + education
-				+ ", marriage=" + marriage + ", applicantTime=" + applicantTime
+				+ ", marriage=" + marriage + ", applicantTime=" + applicationTime
 				+ ", povertyRank=" + povertyRank + ", applicantStatus="
 				+ applicantStatus + ", bankCardNumber=" + bankCardNumber
 				+ ", applicantReason=" + applicantReason + "]";
