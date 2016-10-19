@@ -1,24 +1,38 @@
 package com.cdsecond.bean;
 
 public class AlleviationSituation {
-	//private int alleviationSituationID;		//帮扶情况ID
-	private String alleviationStartTime;		//帮扶开始时间	
-	private String alleviationEndTime;			//帮扶结束时间
+	private int alleviationSituationID;			//帮扶情况ID
+	private int applicantID;					//申请人ID
+	private String startTime;					//帮扶开始时间	
+	private String endTime;						//帮扶结束时间
 	private String alleviationDetail;			//具体措施
 	private int alleviationDelete;				//删除
+	public int getAlleviationSituationID() {
+		return alleviationSituationID;
+	}
+	public void setAlleviationSituationID(int alleviationSituationID) {
+		this.alleviationSituationID = alleviationSituationID;
+	}
+	public int getApplicantID() {
+		return applicantID;
+	}
+	public void setApplicantID(int applicantID) {
+		this.applicantID = applicantID;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
 
-	public String getAlleviationStartTime() {
-		return alleviationStartTime;
-	}
-	public void setAlleviationStartTime(String alleviationStartTime) {
-		this.alleviationStartTime = alleviationStartTime;
-	}
-	public String getAlleviationEndTime() {
-		return alleviationEndTime;
-	}
-	public void setAlleviationEndTime(String alleviationEndTime) {
-		this.alleviationEndTime = alleviationEndTime;
-	}
+
 	public String getAlleviationDetail() {
 		return alleviationDetail;
 	}
@@ -33,25 +47,26 @@ public class AlleviationSituation {
 	}
 	@Override
 	public String toString() {
-		return "alleviationSituation [alleviationStartTime="
-				+ alleviationStartTime + ", alleviationEndTime="
-				+ alleviationEndTime + ", alleviationDetail="
-				+ alleviationDetail + ", alleviationDelete="
-				+ alleviationDelete + ", toString()=" + super.toString() + "]";
+		return "AlleviationSituation [alleviationSituationID="
+				+ alleviationSituationID + ", applicantID=" + applicantID
+				+ ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", alleviationDetail=" + alleviationDetail
+				+ ", alleviationDelete=" + alleviationDelete + ", toString()="
+				+ super.toString() + "]";
 	}
-	public AlleviationSituation(String alleviationStartTime,
-			String alleviationEndTime, String alleviationDetail,
+	public AlleviationSituation(int alleviationSituationID, int applicantID,
+			String startTime, String endTime, String alleviationDetail,
 			int alleviationDelete) {
 		super();
-		this.alleviationStartTime = alleviationStartTime;
-		this.alleviationEndTime = alleviationEndTime;
+		this.alleviationSituationID = alleviationSituationID;
+		this.applicantID = applicantID;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.alleviationDetail = alleviationDetail;
 		this.alleviationDelete = alleviationDelete;
 	}
 	public AlleviationSituation() {
 		super();
 	}
-
-	
 
 }

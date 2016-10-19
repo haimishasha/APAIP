@@ -1,0 +1,2 @@
+alter table alleviation_result change alleviationStartTime2 alleviationStartTime date;
+alter table alleviation_result change alleviationEndTime2 alleviationEndTime date;
