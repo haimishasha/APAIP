@@ -71,10 +71,41 @@ public class AlleviationResultDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static List<AlleviationResult> getClassStudent(Long id) throws SQLException{
+	public static List<AlleviationResult> listAlleviationResult() throws SQLException{
 		List<AlleviationResult> list = new ArrayList<AlleviationResult>();
 		Connection con =DBUtil.getConnection();
 		String sql = "select * from alleviation_result";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		AlleviationResult  alleviationResult= null;
+		while(rs.next()){
+			alleviationResult = new AlleviationResult();
+			pstmt.setInt(0, alleviationResult.getAlleviationResultID());
+			pstmt.setInt(1, alleviationResult.getApplicantID());
+			pstmt.setString(2, alleviationResult.getRegistrant());
+			pstmt.setString(3, alleviationResult.getRegisterTime());
+			pstmt.setString(4, alleviationResult.getAlleviationStartTime());
+			pstmt.setString(5, alleviationResult.getAlleviationEndTime());
+			pstmt.setString(6, alleviationResult.getResultDescription());
+			pstmt.setString(7, alleviationResult.getAlleviationStatus());
+			list.add(alleviationResult);
+		}
+		DBUtil.closeCon(rs);
+		DBUtil.closeCon(pstmt);
+		DBUtil.closeCon(con);
+		return list;
+	}
+	
+	/**
+	 * 默认返回扶贫情况的查询结果
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public static List<AlleviationResult> getAlleviationResult(long id) throws SQLException{
+		List<AlleviationResult> list = new ArrayList<AlleviationResult>();
+		Connection con =DBUtil.getConnection();
+		String sql = "select * from alleviation_result where alleviationResultID="+id+"";
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		AlleviationResult  alleviationResult= null;
