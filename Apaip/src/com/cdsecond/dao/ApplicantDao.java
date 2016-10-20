@@ -483,114 +483,114 @@ public class ApplicantDao {
 		
 		return s;
 	}	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-		ApplicantDao dao = new ApplicantDao();
-		
-//		try {
-//			List<Applicant> list = dao.selectApplicant(" applicantStatus = 1 ",1);
-//			
-//			
-//			for(Applicant a:list){
-//				
-//				System.out.println(a.getApplicantName());
-//				
-//				System.out.println(a.getApplicantAddress());
-//				
-//				System.out.println(a.getApplicantDisabilityNumber());
-//			}
-//			
-//	
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
-		
-		
-//		int totalRecords = dao.getTotalRecords("applicant_info");
+//	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+//		ApplicantDao dao = new ApplicantDao();
 //		
-//		System.out.println(totalRecords);
-		
-//		try {
-			boolean flag = dao.deleteApplicant("1");
-			System.out.println(flag);
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		Applicant a = new Applicant();
-//		
-//		a.setApplicantName("王五");
-//		
-//		a.setApplicantSex("男");
-//		
-//		a.setApplicantNation("汉族");
-//		
-//		a.setApplicantIdNumber("142723199403080882");
-//		
-//		a.setApplicantPhone("18435155844");
-//		
-//		a.setApplicantAddress("成都");
-//		
-//		a.setApplicantFamilyNumber(5);
-//		
-//		a.setApplicantDisabilityNumber("123456789");
-//		
-//		a.setApplicantDisablityCondition("生活不能自理");
-//		
-//		a.setApplicantIncome(1000.5);
-//		
-//		a.setHouseArea(50.0);
-//		
-//		a.setEducation("小学");
-//		
-//		a.setMarriage("未婚");
-//		
-//		a.setApplicantTime("2016-10-18");
-//		
-//		a.setPovertyRank("0");
-//		
-//		a.setApplicantStatus(1);
-//		
-//		a.setBankCardNumber("6217000260000247803");
-//		
-//		a.setApplicantReason("家庭贫困，缺乏经济来源");
-//		
-//		boolean flag = dao.updateApplicant(a);
-//		
-//		System.out.println(flag);
+////		try {
+////			List<Applicant> list = dao.selectApplicant(" applicantStatus = 1 ",1);
+////			
+////			
+////			for(Applicant a:list){
+////				
+////				System.out.println(a.getApplicantName());
+////				
+////				System.out.println(a.getApplicantAddress());
+////				
+////				System.out.println(a.getApplicantDisabilityNumber());
+////			}
+////			
+////	
+////		} catch (ClassNotFoundException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		} catch (IOException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
 //		
 //		
-//		boolean flag;
-//		try {
-//			flag = dao.addApplicant(a);
+//		
+//		
+////		int totalRecords = dao.getTotalRecords("applicant_info");
+////		
+////		System.out.println(totalRecords);
+//		
+////		try {
+//			boolean flag = dao.deleteApplicant("1");
 //			System.out.println(flag);
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+////		} catch (ClassNotFoundException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		} catch (IOException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
 //		
-//		
-	}
+////		Applicant a = new Applicant();
+////		
+////		a.setApplicantName("王五");
+////		
+////		a.setApplicantSex("男");
+////		
+////		a.setApplicantNation("汉族");
+////		
+////		a.setApplicantIdNumber("142723199403080882");
+////		
+////		a.setApplicantPhone("18435155844");
+////		
+////		a.setApplicantAddress("成都");
+////		
+////		a.setApplicantFamilyNumber(5);
+////		
+////		a.setApplicantDisabilityNumber("123456789");
+////		
+////		a.setApplicantDisablityCondition("生活不能自理");
+////		
+////		a.setApplicantIncome(1000.5);
+////		
+////		a.setHouseArea(50.0);
+////		
+////		a.setEducation("小学");
+////		
+////		a.setMarriage("未婚");
+////		
+////		a.setApplicantTime("2016-10-18");
+////		
+////		a.setPovertyRank("0");
+////		
+////		a.setApplicantStatus(1);
+////		
+////		a.setBankCardNumber("6217000260000247803");
+////		
+////		a.setApplicantReason("家庭贫困，缺乏经济来源");
+////		
+////		boolean flag = dao.updateApplicant(a);
+////		
+////		System.out.println(flag);
+////		
+////		
+////		boolean flag;
+////		try {
+////			flag = dao.addApplicant(a);
+////			System.out.println(flag);
+////		} catch (ClassNotFoundException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		} catch (IOException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
+////		
+////		
+//	}
 
 }
