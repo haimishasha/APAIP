@@ -121,6 +121,7 @@ public class DictionaryDao {
 				dic.setDicName(rs.getString("dicName"));
 				dic.setDicType(rs.getString("dicType"));
 				dic.setDicDescription(rs.getString("dicDescription"));
+				
 			}
 
 			DBUtil.closeCon(rs);
@@ -197,6 +198,19 @@ public class DictionaryDao {
 			MySqlConnection.close(null, pstmt, con);
 			return result;
 		}
+	 public static List<String> getType(){
+		 Connection con = DBUtil.getConnection();
+			
+			String sql ="select dicType from Dictionary  ";
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			List <String> list;
+			while(rs.next){
+				list.add(rs.getString("dicType"));
+			}
+	 }
 	 /**
 		 * 修改数据字典
 		 * @param dictionary

@@ -100,6 +100,8 @@ public class DictionaryServlet extends HttpServlet {
 		request.setAttribute("id", ids);
 		int id = Integer.parseInt(ids);
 		Dictionary dictionary;
+		List<String> dicType = DictionaryDao.getType();
+		request.setAttribute("dicType",dictype);
 		try {
 			dictionary = DictionaryDao.getOneDictionary(id);
 			request.setAttribute("dictionary", dictionary);
