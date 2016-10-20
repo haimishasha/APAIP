@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   扶贫结果ID:<input type="text"/> 申请人ID:<input type="text"/><input type="button" value="查询"id="select"/>
   
   <form> 
-  <table>
+  <table border="1">
 
   <tr>
   <td>帮扶情况ID </td><td>申请人ID </td><td>开始时间  </td><td>结束时间  </td><td>帮扶描述 </td><td>删除 </td>
@@ -51,6 +51,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      </td>
      <td>
      <%=alleviationSituation.getApplicantID() %>
+     </td>
+     <td>
+     <%=alleviationSituation.getStartTime() %>
      </td>
      <td>
      <%=alleviationSituation.getEndTime() %>

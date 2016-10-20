@@ -117,8 +117,8 @@ public class AlleviationSituationDao {
     		
     		java.util.Date endTime = rs.getDate(4);
     		SimpleDateFormat formater1 = new SimpleDateFormat();  
-    		formater.applyPattern("yyyy-MM-dd");  
-    		String time1 = formater.format(endTime);  
+    		formater1.applyPattern("yyyy-MM-dd");  
+    		String time1 = formater1.format(endTime);  
     		alleviationSituation.setEndTime(time1);
     		
 
