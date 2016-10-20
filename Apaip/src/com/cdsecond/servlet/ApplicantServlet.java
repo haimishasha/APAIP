@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cdsecond.bean.Applicant;
+import com.cdsecond.common.IsEmpty;
 import com.cdsecond.service.ApplicantService;
 
 @SuppressWarnings("serial")
@@ -80,6 +81,8 @@ public class ApplicantServlet extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		
+		System.out.println(action);
+		
 		if(action.equals("add")) {
 			addApplicant(request, response);
 		}
@@ -137,6 +140,8 @@ public class ApplicantServlet extends HttpServlet {
 		}catch(NumberFormatException e){
 			
 			applicantFamilyNumber = 0;
+		}catch(NullPointerException e) {
+			applicantFamilyNumber = 0;
 		}
 		
 		String applicantDisabilityNumber = request.getParameter("applicantDisabilityNumber");
@@ -149,6 +154,8 @@ public class ApplicantServlet extends HttpServlet {
 			applicantIncome = Double.valueOf(request.getParameter("applicantIncome"));
 		}catch(NumberFormatException e) {
 			applicantIncome = 0.0;
+		}catch(NullPointerException e){
+			applicantIncome = 0.0;
 		}
 		
 		double houseArea = 0.0;
@@ -156,6 +163,8 @@ public class ApplicantServlet extends HttpServlet {
 		try{
 			houseArea = Double.valueOf(request.getParameter("houseArea"));
 		}catch(NumberFormatException e ) {
+			houseArea = 0.0;
+		}catch(NullPointerException e) {
 			houseArea = 0.0;
 		}
 		
@@ -229,14 +238,30 @@ public class ApplicantServlet extends HttpServlet {
 		
 	}
 
+	@SuppressWarnings("unused")
 	private void selectApplicant(HttpServletRequest request,
 			HttpServletResponse response) {
+		
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		int currentPage = 0;
 		
 		try{
-			currentPage = Integer.valueOf(request.getParameter("currentPage"));
+			if(Integer.valueOf(request.getParameter("currentPage"))>0){
+			
+				currentPage = Integer.valueOf(request.getParameter("currentPage"));
+			}else{
+				currentPage = 1;
+			}
 		}catch(NumberFormatException e) {
+			currentPage = 1;
+		}catch(NullPointerException e) {
 			currentPage = 1;
 		}
 		
@@ -271,6 +296,8 @@ public class ApplicantServlet extends HttpServlet {
 			applicantIncome = Double.valueOf(request.getParameter("applicantIncome"));
 		}catch(NumberFormatException e) {
 			applicantIncome = 0.0;
+		}catch(NullPointerException e) {
+			applicantIncome = 0.0;
 		}
 		
 		double houseArea = 0.0;
@@ -278,6 +305,8 @@ public class ApplicantServlet extends HttpServlet {
 		try{
 			houseArea = Double.valueOf(request.getParameter("houseArea"));
 		}catch(NumberFormatException e ) {
+			houseArea = 0.0;
+		}catch(NullPointerException e) {
 			houseArea = 0.0;
 		}
 		
@@ -332,7 +361,34 @@ public class ApplicantServlet extends HttpServlet {
 		try {
 			List<Applicant> list = ApplicantService.selectApplicant(applicant, currentPage);
 			
-			request.setAttribute("list", list);
+			int totalRecords = list.size();
+			if(list != null || totalRecords!=0) {
+				request.setAttribute("list", list);
+				request.setAttribute("totalRecords", totalRecords);
+				request.setAttribute("currentPage", currentPage);
+				
+				String go = request.getParameter("go");
+				if(IsEmpty.isEmpty(go)){
+				request.getRequestDispatcher("jsp/ApplicantInfo/applicant-table.jsp").forward(request, response);
+				}
+				if(go.equals("update")){
+					request.getRequestDispatcher("jsp/ApplicantInfo/applicant-update.jsp").forward(request, response);
+
+				}
+				if(go.equals("detail")){
+					request.getRequestDispatcher("jsp/ApplicantInfo/applicant-detail.jsp").forward(request, response);
+
+				}
+			}else{
+				out.print("<script>alert('没有找到数据')</script>");
+				out.flush();
+				out.close();
+			}
+			
+			
+			
+			
+		
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -343,7 +399,12 @@ public class ApplicantServlet extends HttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
+		
 		
 	}
 
@@ -375,6 +436,9 @@ public class ApplicantServlet extends HttpServlet {
 	public void addApplicant(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		PrintWriter out = response.getWriter();
+		
 		String applicantName = request.getParameter("applicantName");
 		
 		String applicantSex = request.getParameter("applicantSex");
@@ -404,7 +468,10 @@ public class ApplicantServlet extends HttpServlet {
 		
 		try{
 			applicantIncome = Double.valueOf(request.getParameter("applicantIncome"));
+			
 		}catch(NumberFormatException e) {
+			applicantIncome = 0.0;
+		}catch(NullPointerException e){
 			applicantIncome = 0.0;
 		}
 		
@@ -413,6 +480,8 @@ public class ApplicantServlet extends HttpServlet {
 		try{
 			houseArea = Double.valueOf(request.getParameter("houseArea"));
 		}catch(NumberFormatException e ) {
+			houseArea = 0.0;
+		}catch(NullPointerException e){
 			houseArea = 0.0;
 		}
 		
@@ -427,7 +496,7 @@ public class ApplicantServlet extends HttpServlet {
 		String bankCardNumber = request.getParameter("bankCardNumber");
 		
 		String applicantReason = request.getParameter("applicantReason");
-		
+	
 		Applicant applicant = new Applicant();
 		
 		applicant.setApplicantName(applicantName);
@@ -468,16 +537,27 @@ public class ApplicantServlet extends HttpServlet {
 			
 			if(ApplicantService.addApplicant(applicant)){
 				
+				request.getRequestDispatcher("jsp/ApplicantInfo/applicant-table.jsp").forward(request, response);
 				
 			}else{
 				
+
+				out.println("<script>alert('添加失败')</script>");
+				out.println("<script>window.location='jsp/ApplicantInfo/applicant-add.jsp'</script>");
+				out.flush();
+				out.close();
+				
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		}
 	} 
 	

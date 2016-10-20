@@ -37,9 +37,9 @@ public class MySqlConnection {
 		//创建Connection对象
 		Connection con = null;
 		//加载驱动程序，抛出一个ClassNotFound异常
-		Class.forName(GetSqlProperties.getProperty("driver", "file/mysql.properties"));
+		Class.forName("com.mysql.jdbc.Driver");
 		//建立Oracle与Java的连接,抛出SQLException异常
-		con = DriverManager.getConnection(GetSqlProperties.getProperty("url", "file/mysql.properties"),GetSqlProperties.getProperty("userName", "file/mysql.properties"),GetSqlProperties.getProperty("password", "file/mysql.properties"));
+		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/apaip?zeroDateTimeBehavior=convertToNull","root","root");
 		
 		System.out.println("连接成功");
 		//返回Connection对象
