@@ -58,7 +58,7 @@ public class Tools {
 	
 	public static int getStartRecord(int currentpage){
 		int startnum =10*(currentpage-1)+1; 
-		return startnum;
+		return startnum-1;
 	}
 	
 	
