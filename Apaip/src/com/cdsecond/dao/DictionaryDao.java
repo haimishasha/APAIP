@@ -25,7 +25,7 @@ public class DictionaryDao {
 	public static String getDicSql(String dicType,String dicDescription){
 		StringBuffer sql = new StringBuffer("select * from dictionary where 1=1");
 		if(!Tools.isEmpty(dicType)){
-			sql.append(" and dicType = '"+dicType+"'");
+			sql.append(" and dicName = '"+dicType+"'");
 		}
 		if(!Tools.isEmpty(dicDescription)){
 			sql.append(" and dicDescription like '"+Tools.getSelect(dicDescription)+"'");
@@ -139,7 +139,7 @@ public class DictionaryDao {
 	 * @throws ClassNotFoundException 
 	 * @throws IOException 
 	 */
-	public boolean addDictionary(Dictionary dictionary) throws ClassNotFoundException, SQLException, IOException {
+	public static boolean addDictionary(Dictionary dictionary) throws ClassNotFoundException, SQLException, IOException {
 		Connection con = null;	
 		int a;
 		boolean result = false;
@@ -204,7 +204,7 @@ public class DictionaryDao {
 		 * @return boolean
 		 * @throws SQLException
 		 */
-	 public boolean updateDictionary(Dictionary dictionary) throws ClassNotFoundException, SQLException, IOException{
+	 public static boolean updateDictionary(Dictionary dictionary,String dicID) throws ClassNotFoundException, SQLException, IOException{
 			
 			Connection con = null;
 			int a;
@@ -212,7 +212,7 @@ public class DictionaryDao {
 			
 			
 			PreparedStatement pstmt  = null;
-			String dicID = dictionary.getDicID();
+			//String dicID = dictionary.getDicID();
 			int id = Integer.parseInt(dicID);
 			String dicName = dictionary.getDicName();		//获取姓名
 			
