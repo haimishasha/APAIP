@@ -1,0 +1,22 @@
+.password{
+
+	width: 200px;
+
+}
+/*#btn-pwd-alter,#btn-pwd-cancel{
+	margin-right:15px;
+}*/
+
+.btn-pwd-group{
+	margin-top: 15px;
+	margin-left: 105px;
+}
+
+/* selection-notes-add*/
+.datetext{
+	width: 200px;
+}
+.btn-selection-note-group{
+	position:relative;
+	left: 6.15in; 
+}
