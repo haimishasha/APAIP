@@ -305,44 +305,44 @@ public class SelectionNotesDao {
 		return flag;
 	}
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-		SelectionNotesDao dao = new SelectionNotesDao();
-		
-		System.out.println(GetTotalRecords.getTotalRecords("selection_notes"));
-		
-		boolean flag = dao.deleteSelectionNotes("1");
-		
-		System.out.println(flag);
-		
-//		List<SelectionNotes> list = dao.selectSelectionNotes(" notesName like '%贫%'", 1);
+//	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+//		SelectionNotesDao dao = new SelectionNotesDao();
 //		
-//		for(SelectionNotes selectionNotes:list) {
-//			System.out.println(selectionNotes.getNotesName());
-//			System.out.println(selectionNotes.getApplyContent());
-//		}
-		
-//		SelectionNotes selectionNotes  = new SelectionNotes();
+//		System.out.println(GetTotalRecords.getTotalRecords("selection_notes"));
 //		
-//		selectionNotes.setNotesName("贫困户申请须知2");
-//		
-//		selectionNotes.setApplyTime("2016-10-19");
-//		
-//		selectionNotes.setApplyPerson("张三");
-//		
-//		selectionNotes.setApplyStartTime("2016-10-05");
-//		
-//		selectionNotes.setApplyEndTime("2016-10-25");
-//		
-//		selectionNotes.setApplyContent("贫困户今年申请每村5人");
-//		
-//		boolean flag = dao.updateSelectionNotes(selectionNotes);
+//		boolean flag = dao.deleteSelectionNotes("1");
 //		
 //		System.out.println(flag);
-		
-//		boolean flag = dao.addSelectionNotes(selectionNotes);
 //		
-//		System.out.println(flag);
-	}
-	
+////		List<SelectionNotes> list = dao.selectSelectionNotes(" notesName like '%贫%'", 1);
+////		
+////		for(SelectionNotes selectionNotes:list) {
+////			System.out.println(selectionNotes.getNotesName());
+////			System.out.println(selectionNotes.getApplyContent());
+////		}
+//		
+////		SelectionNotes selectionNotes  = new SelectionNotes();
+////		
+////		selectionNotes.setNotesName("贫困户申请须知2");
+////		
+////		selectionNotes.setApplyTime("2016-10-19");
+////		
+////		selectionNotes.setApplyPerson("张三");
+////		
+////		selectionNotes.setApplyStartTime("2016-10-05");
+////		
+////		selectionNotes.setApplyEndTime("2016-10-25");
+////		
+////		selectionNotes.setApplyContent("贫困户今年申请每村5人");
+////		
+////		boolean flag = dao.updateSelectionNotes(selectionNotes);
+////		
+////		System.out.println(flag);
+//		
+////		boolean flag = dao.addSelectionNotes(selectionNotes);
+////		
+////		System.out.println(flag);
+//	}
+//	
 	
 }
