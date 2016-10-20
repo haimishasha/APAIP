@@ -1,7 +1,11 @@
 package com.cdsecond.bean;
 
 public class PovertyPlan {
-
+	/**
+	 * @author zhangjian
+ * 说明：扶贫计划类
+ * 		这个类描述了扶贫计划的属性跟set、get方法
+	 */
 	private String planId;//计划ID
 	public PovertyPlan(){
 		
