@@ -17,13 +17,13 @@
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>ApplicantServlet</servlet-name>
-    <servlet-class>com.cdsecond.sevlet.ApplicantServlet</servlet-class>
+    <servlet-class>com.cdsecond.servlet.ApplicantServlet</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>SelectionNotesServlet</servlet-name>
-    <servlet-class>com.cdsecond.sevlet.SelectionNotesServlet</servlet-class>
+    <servlet-class>com.cdsecond.servlet.SelectionNotesServlet</servlet-class>
   </servlet>
 
 
