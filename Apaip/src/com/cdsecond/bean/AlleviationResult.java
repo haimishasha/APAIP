@@ -4,6 +4,11 @@ public class AlleviationResult {
 	private int alleviationResultID;		//帮扶结果ID
 	private int applicantID;				//申请人ID
 	private String alleviationStartTime;	//帮扶开始时间
+	private String alleviationEndTime;		//帮扶结束时间
+	private String registerTime;			//登记时间
+	private String resultDescription;		//帮扶结果描述
+	private String alleviationStatus;		//帮扶状态
+	private String registrant;				//登记人
 	public AlleviationResult() {
 		super();
 	}
@@ -21,11 +26,7 @@ public class AlleviationResult {
 		this.alleviationStatus = alleviationStatus;
 		this.registrant = registrant;
 	}
-	private String alleviationEndTime;		//帮扶结束时间
-	private String registerTime;			//登记时间
-	private String resultDescription;		//帮扶结果描述
-	private String alleviationStatus;		//帮扶状态
-	private String registrant;				//登记人
+
 	public String getAlleviationStartTime() {
 		return alleviationStartTime;
 	}

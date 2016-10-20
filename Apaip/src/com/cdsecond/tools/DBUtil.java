@@ -84,7 +84,7 @@ public class DBUtil {
 		}
 	}
 /**
- * 获取到oracle数据库额连接
+ * 获取到mysql数据库额连接
  * @return Connection
  */
 	public static Connection getConnection(){

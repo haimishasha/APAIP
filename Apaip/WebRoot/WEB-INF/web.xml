@@ -4,6 +4,18 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AlleviationResultServlet</servlet-name>
+    <servlet-class>com.cdsecond.servlet.AlleviationResultServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AlleviationResultServlet</servlet-name>
+    <url-pattern>/servlet/AlleviationResultServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>ApplicantServlet</servlet-name>
     <servlet-class>com.cdsecond.sevlet.ApplicantServlet</servlet-class>
   </servlet>
