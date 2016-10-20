@@ -38,19 +38,7 @@ public class PovertyMeasureSevlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the GET method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		doPost(request, response);
 	}
 
 	/**
@@ -66,20 +54,23 @@ public class PovertyMeasureSevlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
-		out.println("<HTML>");
-		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
-		out.println("  <BODY>");
-		out.print("    This is ");
-		out.print(this.getClass());
-		out.println(", using the POST method");
-		out.println("  </BODY>");
-		out.println("</HTML>");
-		out.flush();
-		out.close();
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
+		String main=request.getParameter("main");
+
+		if(main.equals("EditStart")){
+			EditStart(request, response);			
+		}else if(main.equals("edit")){
+			edit(request,response);
+		}else if(main.equals("List")){
+			list(request,response);
+		}else if(main.equals("Det")){
+			det(request, response);
+		}else if(main.equals("delete")){
+			delete(request, response);
+		}
 	}
+	
 
 	/**
 	 * Initialization of the servlet. <br>
