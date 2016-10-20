@@ -1,4 +1,12 @@
 package com.cdsecond.service;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+import com.cdsecond.bean.Applicant;
+import com.cdsecond.dao.ApplicantDao;
+
 /**
  * 
  * @author yaoyanyan
@@ -14,7 +22,50 @@ public class ApplicantService {
 	public ApplicantService() {
 		
 	}
+	
+	public static boolean addApplicant(Applicant applicant) throws ClassNotFoundException, SQLException, IOException{
+		
+		boolean flag = true;
+		
+		ApplicantDao dao = new ApplicantDao();
+		
+		flag = dao.addApplicant(applicant);
+		
+		return flag;
+	}
 
+	public static boolean deleteApplicant(String applicantID) throws ClassNotFoundException, SQLException, IOException {
+		
+		boolean flag = true;
+		
+		ApplicantDao dao = new ApplicantDao();
+		
+		flag = dao.deleteApplicant(applicantID);
+		
+		return flag;
+	}
+	
+	public static List<Applicant> selectApplicant(Applicant applicant,int currentPage) throws ClassNotFoundException, SQLException, IOException {
+		
+		ApplicantDao dao = new ApplicantDao();
+		
+		String s = dao.sqlStatement(applicant);
+		
+		List<Applicant> list = dao.selectApplicant(s, currentPage);
+		
+		return list;
+	}
+	
+	public static boolean updateApplicant(Applicant applicant) throws ClassNotFoundException, SQLException, IOException {
+		
+		boolean flag = true;
+		
+		ApplicantDao dao = new ApplicantDao();
+		
+		flag = dao.updateApplicant(applicant);
+		
+		return flag;
+	}
 	
 	
 }
