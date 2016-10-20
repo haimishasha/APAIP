@@ -328,6 +328,8 @@ public class ApplicantDao {
 			
 			applicant.setApplicantDisabilityNumber(rs.getString("applicantDisabilityNumber"));
 			
+			applicant.setApplicantDisablityCondition(rs.getString("applicantDisablityCondition"));
+			
 			applicant.setApplicantIncome(rs.getDouble("applicantIncome"));
 			
 			applicant.setHouseArea(rs.getDouble("houseArea"));
@@ -352,48 +354,6 @@ public class ApplicantDao {
 
 		//返回申请人列表
 		return list;
-	}
-	
-	/**
-	 * 说明：这个方法用于查询数据的总记录数
-	 * @param tableNames
-	 * @return
-	 * @throws  
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
-	 * @throws IOException 
-	 */
-	public int getTotalRecords(String tableNames) throws ClassNotFoundException, SQLException, IOException {
-		//定义总记录数
-		int totalRecords = 0;
-		
-		Connection con = null;
-		
-		PreparedStatement pstmt  = null;
-		
-		ResultSet rs = null;
-		
-		String sql = "select count(*) num from " + tableNames;
-		
-		//连接数据库 
-		con = MySqlConnection.getConnection();
-		
-		//发送sql语句
-		pstmt = con.prepareStatement(sql);
-		
-		//执行sql语句
-		pstmt.execute();
-		
-		rs = pstmt.getResultSet();
-		
-		while(rs.next()){
-			totalRecords = rs.getInt("num");
-		}
-		
-		
-		
-		//返回总记录数
-		return totalRecords;
 	}
 	
 	/**
