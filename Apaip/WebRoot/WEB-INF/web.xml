@@ -35,12 +35,7 @@
     <servlet-name>SelectionNotesServlet</servlet-name>
     <url-pattern>/SelectionNotesServlet</url-pattern>
   </servlet-mapping>
-	<servlet>
-    <description>my first servlet</description>
-    <display-name>my first servlet</display-name>
-    <servlet-name>DictionaryServlet</servlet-name>
-    <servlet-class>com.cdsecond.servlet.DictionaryServlet</servlet-class>
-  </servlet>
+>
   <servlet>
     <description>my first servlet</description>
     <display-name>my first servlet</display-name>
@@ -53,13 +48,17 @@
     <servlet-name>PovertyPlanServlet</servlet-name>
     <servlet-class>com.cdsecond.servlet.PovertyPlanServlet</servlet-class>
   </servlet>
-
-
-
-  <servlet-mapping>
+  <servlet>
+    <description>my first servlet</description>
+    <display-name>my first servlet</display-name>
     <servlet-name>DictionaryServlet</servlet-name>
-    <url-pattern>/DictionaryServlet</url-pattern>
-  </servlet-mapping>
+    <servlet-class>com.cdsecond.servlet.DictionaryServlet</servlet-class>
+  </servlet>
+
+
+
+
+
   <servlet-mapping>
     <servlet-name>PovertyMeasureSevlet</servlet-name>
     <url-pattern>/PovertyMeasureSevlet</url-pattern>
@@ -67,6 +66,10 @@
   <servlet-mapping>
     <servlet-name>PovertyPlanServlet</servlet-name>
     <url-pattern>/PovertyPlanServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DictionaryServlet</servlet-name>
+    <url-pattern>/DictionaryServlet</url-pattern>
   </servlet-mapping>
 
   
