@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.cdsecond.bean.Applicant;
+import com.cdsecond.common.GetTotalRecords;
 import com.cdsecond.dao.ApplicantDao;
 
 /**
@@ -67,5 +68,14 @@ public class ApplicantService {
 		return flag;
 	}
 	
-	
+	public static int getTotalRecords() throws ClassNotFoundException, SQLException, IOException{
+		
+		int totalPages = 0;
+		
+		totalPages = GetTotalRecords.getTotalRecords("applicant_info");
+		
+		return totalPages;
+				
+	}
 }
+

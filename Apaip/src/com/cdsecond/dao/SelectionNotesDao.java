@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cdsecond.bean.SelectionNotes;
-import com.cdsecond.common.GetTotalRecords;
 import com.cdsecond.common.IsEmpty;
 import com.cdsecond.common.MySqlConnection;
 
