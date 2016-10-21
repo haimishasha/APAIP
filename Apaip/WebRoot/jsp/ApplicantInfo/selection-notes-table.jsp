@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <header class="am-topbar am-topbar-inverse admin-header">
+   <header class="am-topbar am-topbar-inverse admin-header">
   <div class="am-topbar-brand">
     <strong>精准扶贫信息化平台</strong>
   </div>
@@ -62,8 +62,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-one'}"><span class="am-icon-table"></span> 精确识别</a></li>
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav-one">
-            <li><a href="selection-notes-table.html" class="am-cf"><span class="am-icon-check"></span> 申请评选须知<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a href="<%=basePath %>ApplicantServlet?action=select"><span class="am-icon-check"></span> 申请人信息管理</a></li>
+            <li><a href="<%=basePath %>SelectionNotesServlet?action=select" class="am-cf"><span class="am-icon-check"></span> 申请评选须知<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a href="applicant-table.html"><span class="am-icon-check"></span> 申请人信息管理</a></li>
             <li><a href="poverty-table.html"><span class="am-icon-check"></span> 识别贫困户</a></li>
           </ul>
         <li><a href="#" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-pencil-square-o"></span> 精确管理</a></li>
@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="admin-content">
     <div class="admin-content-body">
       <div class="am-cf am-padding am-padding-bottom-0">
-        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">申请人信息</strong></div>
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">申请评选须知信息</strong></div>
       </div>
 
       <hr>
@@ -117,10 +117,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="am-u-sm-12 am-u-md-6">
           <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
-            <form action = "ApplicantServlet?action=getDic&use=poorDemand&go=add" method = "post">
-              <button type="submit" class="am-btn am-btn-default" id="addApplicantBtn" ><span class="am-icon-plus"></span> 新增</button>
+            <form action="<%=basePath%>jsp/ApplicantInfo/selection-notes-add.jsp" method = "post">
+              <button type="submit" class="am-btn am-btn-default" id="addSelectionNotesBtn" ><span class="am-icon-plus"></span> 新增</button>
              </form>
-             <!-- <button type="button" class="am-btn am-btn-default" id="delApplicantBtn"><span class="am-icon-trash-o"></span> 删除</button> --> 
+              <button type="button" class="am-btn am-btn-default" id="delSelectionNotesBtn"><span class="am-icon-trash-o"></span> 删除</button>
             </div>
           </div>
         </div>
@@ -130,23 +130,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <!-- condition start -->
       <div id="select">
        <div class="am-u-sm-12 am-u-md-3">
-          <div class="user-condition">
-            <form action = "ApplicantServlet?action=select" method = "post">
-            <span > 姓名</span>
-            <input type="text" class="applicantName" name = "applicantName" value = "">
-            <span > 户籍所在地</span>
-            <input type="text" class="address" name = "applicantAddress" value = "">
-
-            <span > 受教育程度</span>
-            <select id="doc-select-1" name = "education">
-              <option value="">-=请选择一项=-</option>
-              <option value="小学">小学</option>
-              <option value="初中">初中</option>
-              <option value="大学">大学</option>
-            </select>
-
-            <button class="select-btn" type="submit">查询</button>
+          <div class="selection-notes-condition">
+            <!-- <span > 关键字：</span>
+            <input type="text" class="userName">
+            <span > 姓名：</span>
+            <input type="text" class="trueName">
+            <button class="select-btn" type="button">查询</button> -->
+            <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search" action = "SelectionNotesServlet?action=select" method = "post">
+              <div class="am-form-group">
+                <input type="text" class="am-form-field am-input-sm" name = "notesName" value = "" placeholder="关键字搜索">
+              </div>
+              <button type="submit" class="am-btn am-btn-default am-btn-sm">搜索</button>
             </form>
+          
           </div>
         </div>
       </div>
@@ -164,36 +160,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <tr>
                 <th class="table-check"><input type="checkbox" id="total-choose"/></th>
                 <th class="table-id">序号</th>
-                <th class="table-name">姓名</th>
-                <th class="table-gender">性别</th>
-                <th class="table-nation">民族</th>
-                <th class="table-address">户籍所在地</th>
-                <th class="table-address">受教育程度</th>
-                <th class="table-nation">联系方式</th>
+                <th class="table-title">申请评选须知标题</th>
+                <th class="table-maker">发布人</th>
+                <th class="table-date am-hide-sm-only">发布时间</th>
                 <th class="table-set">操作</th>
               </tr>
               </thead>
               <tbody>
-              <c:forEach var="applicant_list" items="${list}">
-              <tr>
-                <td><input type="checkbox" /><input type="hidden" name="applicantID" value="${applicant_list.applicantID }"></td>
+             
+
+			<c:forEach items = "${list }" var = "selectionNotes">
+             <tr>
+                <td><input type="checkbox" /><input type="hidden" name="userID" value="${selectionNotes.selectionNotesID }"></td>
                 <td>1</td>
-                <td>${applicant_list.applicantName }</td>
-                <td>${applicant_list.applicantSex }</td>
-                <td>${applicant_list.applicantNation }</td>
-                <td>${applicant_list.applicantAddress }</td>
-                <td>${applicant_list.education }</td>
-                <td>${applicant_list.applicantPhone }</td>
+                <td>${selectionNotes.notesName }</td>
+                <td class="am-hide-sm-only">haoshasha</td>
+                <td class="am-hide-sm-only">${selectionNotes.applyTime }</td>
                 <td>
                  
-                      <a href="<%=basePath%>ApplicantServlet?action=select&applicantID=${applicant_list.applicantID}&go=detail">详情</a>
-                      <a href="<%=basePath%>ApplicantServlet?action=select&applicantID=${applicant_list.applicantID}&go=update">修改</a>
-                      <a href="<%=basePath%>ApplicantServlet?action=delete&applicantID=${applicant_list.applicantID}">删除</a>
+                      <a href="SelectionNotesServlet?action=select&go=detail&selectionNotesID=${selectionNotes.selectionNotesID }">详情</a>
+                      <a href="SelectionNotesServlet?action=select&go=update&selectionNotesID=${selectionNotes.selectionNotesID }">修改</a>
+                      <a href="SelectionNotesServlet?action=delete&selectionNotesID=${selectionNotes.selectionNotesID }">删除</a>
                    
                 </td>
               </tr>
               </c:forEach>
-              
+
+             
+             
 
               </tbody>
             </table>
@@ -202,14 +196,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
             <!-- page start -->
             <div class="am-cf">
-              共  ${totalRecords} 条记录
+              共 15 条记录
               <div class="am-fr">
                 <ul class="am-pagination">
-                  <li><a href="<%=basePath%>ApplicantServlet?action=select&currentPage=1">首页</a></li>
-                  <li><a href="<%=basePath%>ApplicantServlet?action=select&currentPage=${currentPage-1}">上一页</a></li>
-                  <li><a href="<%=basePath%>ApplicantServlet?action=select&currentPage=${currentPage+1}">下一页</a></li>
-                  <li><a href="<%=basePath%>ApplicantServlet?action=select&currentPage=${totalRecords/10+1}">尾页</a></li>
+                  <li><a href="<%=basePath%>SelectionNotesServlet?action=select&currentPage=1">首页</a></li>
+                  <li><a href="<%=basePath%>SelectionNotesServlet?action=select&currentPage=${currentPage-1}">上一页</a></li>
+                  <li><a href="<%=basePath%>SelectionNotesServlet?action=select&currentPage=${currentPage+1}">下一页</a></li>
+                  <li><a href="<%=basePath%>SelectionNotesServlet?action=select&currentPage=${totalRecords/10+1}">尾页</a></li>
                 </ul>
+
               </div>
             </div>
             <!-- page end -->
@@ -227,7 +222,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--[if lt IE 9]>
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="../js/amazeui.ie8polyfill.min.js"></script>
+<script src="<%=basePath%>/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->

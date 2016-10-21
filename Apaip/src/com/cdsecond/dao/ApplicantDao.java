@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cdsecond.bean.Applicant;
+import com.cdsecond.bean.Dictionary;
+import com.cdsecond.bean.PoorDemandItem;
 import com.cdsecond.common.IsEmpty;
 import com.cdsecond.common.MySqlConnection;
 
@@ -50,7 +52,7 @@ public class ApplicantDao {
 				+ "applicantIdNumber,applicantPhone,applicantAddress,applicantFamilyNumber,"
 				+ "applicantDisabilityNumber,applicantDisablityCondition,applicantIncome,houseArea,"
 				+ "education,marriage,applicationTime,povertyRank,applicantStatus,bankCardNumber,"
-				+ "applicantReason) value(?,?,?,?,?,?,?,?,?,?,?,?,?,str_to_date(?,'%Y-%m-%d'),?,?,?,?)";
+				+ "applicantReason,applicantDemand) value(?,?,?,?,?,?,?,?,?,?,?,?,?,str_to_date(?,'%Y-%m-%d'),?,?,?,?,?)";
 		
 		//获取申请人属性值
 		
@@ -82,11 +84,11 @@ public class ApplicantDao {
 		
 		String applicationTime = applicant.getApplicantTime();		//获取申请时间
 		
-		String povertyRank = applicant.getPovertyRank();			//获取贫困等级
-				
 		String bankCardNumber = applicant.getBankCardNumber();		//获取银行卡号
 		
 		String applicantReason = applicant.getApplicantReason();		//获取申请理由
+		
+		String applicantDemand = applicant.getApplicantDemand();
 		
 		con = MySqlConnection.getConnection();		//连接数据库
 		
@@ -121,13 +123,15 @@ public class ApplicantDao {
 		
 		pstmt.setString(14,applicationTime);
 		
-		pstmt.setString(15, povertyRank);
+		pstmt.setString(15, "0");
 		
 		pstmt.setInt(16, 1);
 		
 		pstmt.setString(17, bankCardNumber);
 		
 		pstmt.setString(18, applicantReason);
+		
+		pstmt.setString(19, applicantDemand);
 		
 		//执行sql语句
 		pstmt.execute();
@@ -233,6 +237,8 @@ public class ApplicantDao {
 		String bankCardNumber = applicant.getBankCardNumber();		//获取银行卡号
 		
 		String applicantReason = applicant.getApplicantReason();		//获取申请理由
+		
+		String applicantDemand = applicant.getApplicantDemand();
 
 
 		String sql = "update applicant_info set applicantName = '" + applicantName 
@@ -243,6 +249,7 @@ public class ApplicantDao {
 				+ "applicantIncome = "+applicantIncome+" , houseArea = "+houseArea+" , education = '"+education+"' ,"
 				+ "marriage = '"+ marriage+"' , applicationTime = str_to_date('"+applicationTime+"','%Y-%m-%d') ,"
 				+ "povertyRank = '"+povertyRank+"' , bankCardNumber = '"+bankCardNumber+"' , applicantReason = '"+applicantReason
+				+"',applicantDemand = '" + applicantDemand 
 				+"' " + " where applicantID = '" + applicantID+ "'";
 		
 		
@@ -275,6 +282,8 @@ public class ApplicantDao {
 	 */
 	public List<Applicant> selectApplicant(String s,int currentPage) throws ClassNotFoundException, SQLException, IOException {
 		
+		
+		System.out.println(s);
 		//创建申请人列表
 		List<Applicant> list = new ArrayList<Applicant>();
 		
@@ -288,7 +297,7 @@ public class ApplicantDao {
 				+ "applicantIdNumber,applicantPhone,applicantAddress,applicantFamilyNumber,"
 				+ "applicantDisabilityNumber,applicantDisablityCondition,applicantIncome,houseArea,"
 				+ "education,marriage,applicationTime,povertyRank,applicantStatus,bankCardNumber,"
-				+ "applicantReason from applicant_info where " + s + " order by applicantID limit " 
+				+ "applicantReason,applicantDemand from applicant_info where " + s + " order by applicantID limit " 
 				+ (currentPage-1)*10 + ", "+ 10*currentPage + " ";
 		
 		//连接数据库
@@ -345,6 +354,8 @@ public class ApplicantDao {
 			applicant.setBankCardNumber(rs.getString("bankCardNumber"));
 			
 			applicant.setApplicantReason(rs.getString("applicantReason"));
+			
+			applicant.setApplicantDemand(rs.getString("applicantDemand"));
 		
 			list.add(applicant);
 			
@@ -369,6 +380,7 @@ public class ApplicantDao {
 		
 		//获取申请人属性值
 		String applicantID = applicant.getApplicantID();		//获取申请人ID
+		System.out.println(applicantID+"---------dao");
 		
 		String applicantName = applicant.getApplicantName();		//获取申请人姓名
 		
@@ -411,40 +423,40 @@ public class ApplicantDao {
 		}
 		
 		if(!IsEmpty.isEmpty(applicantName)) {
-			sf.append(" and applicantName like %" + applicantName + "% ");
+			sf.append(" and applicantName like '%" + applicantName + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(applicantSex)) {
-			sf.append(" and applicantSex = %" + applicantSex + "% ");
+			sf.append(" and applicantSex = '%" + applicantSex + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(applicantNation)) {
-			sf.append(" and applicantNation like %" + applicantNation + "% ");
+			sf.append(" and applicantNation like '%" + applicantNation + "%' ");
 		}
 
 		if(!IsEmpty.isEmpty(applicantIdNumber) ) {
-			sf.append(" and applicantIdNumber like %"  + applicantIdNumber + "% ");
+			sf.append(" and applicantIdNumber like '%"  + applicantIdNumber + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(applicantPhone)) {
-			sf.append(" and applicantPhone like %" + applicantPhone + "% ");
+			sf.append(" and applicantPhone like '%" + applicantPhone + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(applicantAddress)) {
-			sf.append(" and applicantAddress like %" + applicantAddress + "% ");
+			sf.append(" and applicantAddress like '%" + applicantAddress + "%' ");
 		}
 		
 		if(applicantFamilyNumber != 0) {
-			sf.append(" and applicantFamilyNumber like %" + applicantFamilyNumber + "% ");
+			sf.append(" and applicantFamilyNumber =" + applicantFamilyNumber + " ");
 			
 		}
 		
 		if(!IsEmpty.isEmpty(applicantDisabilityNumber)) {
-			sf.append(" and applicantDisabilityNumber like %" + applicantDisabilityNumber + "% ");
+			sf.append(" and applicantDisabilityNumber like '%" + applicantDisabilityNumber + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(applicantDisablityCondition)) {
-			sf.append(" and applicantDisablityCondition like %" + applicantDisablityCondition + "% ");
+			sf.append(" and applicantDisablityCondition like '%" + applicantDisablityCondition + "%' ");
 		}
 		
 		if(applicantIncome != 0.0) {
@@ -456,33 +468,127 @@ public class ApplicantDao {
 		}
 		
 		if(!IsEmpty.isEmpty(education)) {
-			sf.append(" and education like %" + education + "% ");
+			sf.append(" and education like '%" + education + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(marriage)) {
-			sf.append(" and marriage like %" + marriage + "%");
+			sf.append(" and marriage like '%" + marriage + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(applicationTime)) {
-			sf.append(" and applicationTime like %"  + applicationTime + "% ");
+			sf.append(" and applicationTime like '%"  + applicationTime + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(povertyRank)) {
-			sf.append(" and povertyRank like %" + povertyRank + "% ");
+			sf.append(" and povertyRank like = '" + povertyRank + "' ");
 		}
 		
 		if(!IsEmpty.isEmpty(bankCardNumber)) {
-			sf.append(" and bankCardNumber like %" + bankCardNumber + "% ");
+			sf.append(" and bankCardNumber like '%" + bankCardNumber + "%' ");
 		}
 		
 		if(!IsEmpty.isEmpty(applicantReason)) {
-			sf.append(" and applicantReason like %" + applicantReason  +"% ");
+			sf.append(" and applicantReason like '%" + applicantReason  +"%' ");
 		}
 		
 		s = sf.toString();
 		
+		System.out.println(s);
+		
 		return s;
 	}	
+	
+	/**
+	 * 
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public List<Dictionary> getDictionary(String dicType) throws ClassNotFoundException, SQLException, IOException{
+		//定义字典列表
+		List<Dictionary> list = new ArrayList<Dictionary>();
+		
+		Connection con = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String sql = "select * from dictionary where dicType = '" + dicType +"'" ;
+		
+		//连接数据库
+		con = MySqlConnection.getConnection();
+		
+		//发送sql语句
+		pstmt = con.prepareStatement(sql);
+		
+		//执行sql语句
+		pstmt.execute();
+		
+		rs = pstmt.getResultSet();
+		
+		while(rs.next()){
+			Dictionary dictionary = new Dictionary();
+			
+			dictionary.setDicID(String.valueOf(rs.getInt("dicID")));
+			
+			dictionary.setDicName(rs.getString("dicName"));
+			
+			dictionary.setDicType(rs.getString("dicType"));
+			
+			dictionary.setDicDescription(rs.getString("dicDescription"));
+			
+			list.add(dictionary);
+		}
+		
+		//返回列表
+		return list;
+		
+	}
+	
+	
+	public List<PoorDemandItem> getPoorDemandItem() throws ClassNotFoundException, SQLException, IOException{
+		//定义字典列表
+		List<PoorDemandItem> list = new ArrayList<PoorDemandItem>();
+		
+		Connection con = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String sql = "select * from poor_demand_item";
+		
+		//连接数据库
+		con = MySqlConnection.getConnection();
+		
+		//发送sql语句
+		pstmt = con.prepareStatement(sql);
+		
+		//执行sql语句
+		pstmt.execute();
+		
+		rs = pstmt.getResultSet();
+		
+		while(rs.next()){
+			PoorDemandItem poorDemandItem = new PoorDemandItem();
+			
+			poorDemandItem.setDemandID(String.valueOf(rs.getInt("demandID")));
+			
+			poorDemandItem.setDemandName(rs.getString("demandName"));
+			
+			poorDemandItem.setDemandDescript(rs.getString("demandDescription"));
+			
+			
+			list.add(poorDemandItem);
+		}
+		
+		
+		//返回列表
+		return list;
+		
+	}
 //	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 //		ApplicantDao dao = new ApplicantDao();
 //		

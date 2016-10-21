@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cdsecond.bean.Applicant;
+import com.cdsecond.bean.Dictionary;
+import com.cdsecond.bean.PoorDemandItem;
 import com.cdsecond.common.IsEmpty;
 import com.cdsecond.service.ApplicantService;
 
 @SuppressWarnings("serial")
 public class ApplicantServlet extends HttpServlet {
+	
 
 	/**
 	 * Constructor of the object.
@@ -81,7 +84,7 @@ public class ApplicantServlet extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		
-		System.out.println(action);
+		System.out.println(action+"-------------");
 		
 		if(action.equals("add")) {
 			addApplicant(request, response);
@@ -97,6 +100,10 @@ public class ApplicantServlet extends HttpServlet {
 		
 		if(action.equals("update")) {
 			updateApplicant(request,response);
+		}
+		
+		if(action.equals("getDic")) {
+			selectDictionary(request, response);
 		}
 		
 		
@@ -180,6 +187,25 @@ public class ApplicantServlet extends HttpServlet {
 		
 		String applicantReason = request.getParameter("applicantReason");
 		
+		String[] applicantDemand = request.getParameterValues("applicantDemand");
+		
+		System.out.println(applicantDemand + "----------------");
+		
+		StringBuffer sf = new StringBuffer();
+		
+		for (int i = 0;i<applicantDemand.length;i++) {
+			
+			if(i<applicantDemand.length){
+			
+			sf.append(applicantDemand[i]+"、");
+			}else{
+				sf.append(applicantDemand[i]);
+			}
+			
+		}
+		
+		String demand = sf.toString();
+		
 		Applicant applicant = new Applicant();
 		
 		applicant.setApplicantID(applicantID);
@@ -218,10 +244,28 @@ public class ApplicantServlet extends HttpServlet {
 		
 		applicant.setApplicantReason(applicantReason);
 		
+		applicant.setApplicantDemand(demand);
+		
+		PrintWriter out = null;
 		try {
-			if(ApplicantService.updateApplicant(applicant)) {
+			out = response.getWriter();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			if(ApplicantService.updateApplicant(applicant)){
+				
+				response.sendRedirect("ApplicantServlet?action=select");
 				
 			}else{
+				
+
+				out.println("<script>alert('添加失败')</script>");
+				out.println("<script>window.location='jsp/ApplicantInfo/applicant-add.jsp'</script>");
+				out.flush();
+				out.close();
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -264,6 +308,10 @@ public class ApplicantServlet extends HttpServlet {
 		}catch(NullPointerException e) {
 			currentPage = 1;
 		}
+		
+		String applicantID = request.getParameter("applicantID");
+		
+		System.out.println(applicantID+"*****************id");
 		
 		String applicantName = request.getParameter("applicantName");
 		
@@ -322,7 +370,10 @@ public class ApplicantServlet extends HttpServlet {
 		
 		String applicantReason = request.getParameter("applicantReason");
 		
+		
 		Applicant applicant = new Applicant();
+		
+		applicant.setApplicantID(applicantID);
 		
 		applicant.setApplicantName(applicantName);
 		
@@ -358,6 +409,8 @@ public class ApplicantServlet extends HttpServlet {
 		
 		applicant.setApplicantReason(applicantReason);
 		
+		
+		
 		try {
 			List<Applicant> list = ApplicantService.selectApplicant(applicant, currentPage);
 			
@@ -367,18 +420,22 @@ public class ApplicantServlet extends HttpServlet {
 				request.setAttribute("totalRecords", totalRecords);
 				request.setAttribute("currentPage", currentPage);
 				
-				String go = request.getParameter("go");
-				if(IsEmpty.isEmpty(go)){
+				
+				
+				
+				
+				if(!IsEmpty.isEmpty(applicantID)){
+					Applicant applicant2 = list.get(0);
+					
+					
+					request.setAttribute("applicant", applicant2);
+					
+					selectDictionary(request, response);
+				}else{
+				
 				request.getRequestDispatcher("jsp/ApplicantInfo/applicant-table.jsp").forward(request, response);
-				}
-				if(go.equals("update")){
-					request.getRequestDispatcher("jsp/ApplicantInfo/applicant-update.jsp").forward(request, response);
-
-				}
-				if(go.equals("detail")){
-					request.getRequestDispatcher("jsp/ApplicantInfo/applicant-detail.jsp").forward(request, response);
-
-				}
+				}	
+				
 			}else{
 				out.print("<script>alert('没有找到数据')</script>");
 				out.flush();
@@ -388,7 +445,7 @@ public class ApplicantServlet extends HttpServlet {
 			
 			
 			
-		
+			
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -402,13 +459,15 @@ public class ApplicantServlet extends HttpServlet {
 		}catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch(NullPointerException e){
+			System.out.println("kongzhizhen");
 		}
 		
 		
 		
 	}
 
-	private void deleteApplicant(HttpServletRequest request,
+	public void deleteApplicant(HttpServletRequest request,
 			HttpServletResponse response) {
 		
 		String applicantID = request.getParameter("applicantID");
@@ -416,7 +475,15 @@ public class ApplicantServlet extends HttpServlet {
 		try {
 			if(ApplicantService.deleteApplicant(applicantID)) {
 				
+				response.sendRedirect("ApplicantServlet?action=select");
+				
 			}else{
+				
+				PrintWriter out = response.getWriter();
+				
+				out.print("<script>alert('删除失败')</script>");
+				out.flush();
+				out.close();
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -432,9 +499,13 @@ public class ApplicantServlet extends HttpServlet {
 		
 		
 	}
+	
+	
 
 	public void addApplicant(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		System.out.println("sdsdsdfsfsf------------------");
 		
 		
 		PrintWriter out = response.getWriter();
@@ -496,6 +567,27 @@ public class ApplicantServlet extends HttpServlet {
 		String bankCardNumber = request.getParameter("bankCardNumber");
 		
 		String applicantReason = request.getParameter("applicantReason");
+		
+		String[] applicantDemand = request.getParameterValues("applicantDemand");
+		
+		System.out.println(applicantDemand + "----------------");
+		
+		StringBuffer sf = new StringBuffer();
+		
+		for (int i = 0;i<applicantDemand.length;i++) {
+			
+			if(i<applicantDemand.length){
+			
+			sf.append(applicantDemand[i]+"、");
+			}else{
+				sf.append(applicantDemand[i]);
+			}
+			
+		}
+		
+		String demand = sf.toString();
+		
+		
 	
 		Applicant applicant = new Applicant();
 		
@@ -533,11 +625,13 @@ public class ApplicantServlet extends HttpServlet {
 		
 		applicant.setApplicantReason(applicantReason);
 		
+		applicant.setApplicantDemand(demand);
+		
 		try {
 			
 			if(ApplicantService.addApplicant(applicant)){
 				
-				request.getRequestDispatcher("jsp/ApplicantInfo/applicant-table.jsp").forward(request, response);
+				response.sendRedirect("jsp/ApplicantInfo/applicant-add.jsp");
 				
 			}else{
 				
@@ -560,6 +654,66 @@ public class ApplicantServlet extends HttpServlet {
 			out.close();
 		}
 	} 
+	
+	
+	
+	public void selectDictionary(HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		System.out.println("------------------------------");
+		
+		try {
+			List<Dictionary> education = ApplicantService.getEducation();
+			
+			request.setAttribute("education", education);
+			
+			List<Dictionary> marriage = ApplicantService.getMarriage();
+			
+			request.setAttribute("marriage",marriage );
+			
+			List<PoorDemandItem> poorDemandList = ApplicantService.getPoorDemandItem();
+			
+			request.setAttribute("poorDemandList", poorDemandList);
+			
+			String go = request.getParameter("go");
+			
+			if(go.equals("add")){
+						
+				request.getRequestDispatcher("jsp/ApplicantInfo/applicant-add.jsp").forward(request, response);
+			}
+				
+			if(go.equals("update")){
+			
+				request.getRequestDispatcher("jsp/ApplicantInfo/applicant-update.jsp").forward(request, response);
+
+			}
+			
+			if(go.equals("detail")){
+				
+				request.getRequestDispatcher("jsp/ApplicantInfo/applicant-detail.jsp").forward(request, response);
+
+			}
+			
+			
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
 	
 	/**
 	 * Initialization of the servlet. <br>

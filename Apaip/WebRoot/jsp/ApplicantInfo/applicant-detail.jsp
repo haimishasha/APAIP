@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -126,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="am-g am-margin-top">
             <div class="am-u-sm-4 am-u-md-2 am-text-right">姓名:</div>
             <div class="am-u-sm-8 am-u-md-10">
-                 <label >张某某</label>
+                 <label >${applicant.applicantName}</label>
             </div>
           </div>
 
@@ -135,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">性别:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >女</label>
+                 <label >${applicant.applicantSex }</label>
               </div>
             </div>
           </div>
@@ -144,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">民族:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                <label >汉族</label>
+                <label >${applicant.applicantNation }</label>
               </div>
             </div>
           </div>
@@ -153,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">户籍所在地:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                <label >xx省xx市xx县xx乡</label>
+                <label >${applicant.applicantAddress }</label>
               </div>
             </div>
           </div>
@@ -163,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">受教育情况:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >初中</label>
+                 <label >${applicant.education }</label>
               </div>
             </div>
           </div>
@@ -172,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">婚姻状况:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                <label >已婚</label>
+                <label >${applicant.marriage }</label>
               </div>
             </div>
           </div>
@@ -181,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">身份证号:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >154214542545214525</label>
+                 <label >${applicant.applicantIdNumber }</label>
               </div>
             </div>
           </div>
@@ -190,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">联系方式:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >18435155335</label>
+                 <label >${applicant.applicantPhone }</label>
               </div>
             </div>
           </div>
@@ -201,7 +202,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">残疾证号:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >14341431415341</label>
+                 <label >${applicant.applicantDisabilityNumber }</label>
               </div>
             </div>
           </div>
@@ -211,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">残疾情况:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >脑残</label>
+                 <label >${applicant.applicantDisablityCondition }</label>
               </div>
             </div>
           </div>
@@ -220,7 +221,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">家庭人数:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >6</label>个人
+                 <label >${applicant.applicantFamilyNumber }</label>个人
               </div>
             </div>
           </div>
@@ -229,7 +230,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">家庭住房面积:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >50</label>平方米
+                 <label >${applicant.houseArea }</label>平方米
               </div>
             </div>
           </div>
@@ -238,7 +239,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">家庭收入:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >6000</label>元/年
+                 <label >${applicant.applicantIncome }</label>元/年
               </div>
             </div>
           </div>
@@ -247,7 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">贫困等级:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >三等特困</label>
+                 <label >${applicant.povertyRank }</label>
               </div>
             </div>
           </div>
@@ -259,7 +260,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">申请时间:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >2016-09-08</label>
+                 <label >${applicant.applicationTime }</label>
               </div>
             </div>
           </div>
@@ -268,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">需求情况:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >社会保险、教育、医疗</label>
+                 <label >${applicant.applicantDemand }</label>
               </div>
             </div>
           </div>
@@ -277,7 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-4 am-u-md-2 am-text-right">申请理由:</div>
             <div class="am-u-sm-8 am-u-md-10">
               <div class="am-btn-group" data-am-button>
-                 <label >工作不稳定，收入不稳定</label>
+                 <label >${applicant.applicantReason }</label>
               </div>
             </div>
           </div>

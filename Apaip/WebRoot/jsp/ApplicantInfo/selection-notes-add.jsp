@@ -3,7 +3,6 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -13,6 +12,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>精准扶贫信息化平台后台管理</title>
+<!--   <meta name="description" content="这是一个 table 页面">
+  <meta name="keywords" content="table"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -21,8 +22,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
   <link rel="stylesheet" href="<%=basePath%>/css/amazeui.min.css"/>
   <link rel="stylesheet" href="<%=basePath%>/css/admin.css">
-   <link rel="stylesheet" href="<%=basePath%>/css/hss/table.css">
-
+  <link rel="stylesheet" href="<%=basePath%>/css/hss/picture.css">
+  <link rel="stylesheet" href="<%=basePath%>/css/hss/detail.css">
+  <script type="text/javascript" src="<%=basePath%>/plugin//My97DatePicker/WdatePicker.js"></script>
+  <script type="text/javascript" src="<%=basePath%>/plugin/ckeditor/ckeditor.js"></script>
   </head>
   
   <body>
@@ -62,8 +65,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-one'}"><span class="am-icon-table"></span> 精确识别</a></li>
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav-one">
-            <li><a href="selection-notes-table.html" class="am-cf"><span class="am-icon-check"></span> 申请评选须知<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a href="<%=basePath %>ApplicantServlet?action=select"><span class="am-icon-check"></span> 申请人信息管理</a></li>
+            <li><a href="<%=basePath %>SelectionNotesServlet?action=select" class="am-cf"><span class="am-icon-check"></span> 申请评选须知<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a href="applicant-table.html"><span class="am-icon-check"></span> 申请人信息管理</a></li>
             <li><a href="poverty-table.html"><span class="am-icon-check"></span> 识别贫困户</a></li>
           </ul>
         <li><a href="#" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-pencil-square-o"></span> 精确管理</a></li>
@@ -107,127 +110,139 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="admin-content">
     <div class="admin-content-body">
       <div class="am-cf am-padding am-padding-bottom-0">
-        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">申请人信息</strong></div>
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加申请评选须知</strong></div>
       </div>
 
-      <hr>
-
-      <!-- operation start -->
-      <div class="am-g">
-        <div class="am-u-sm-12 am-u-md-6">
-          <div class="am-btn-toolbar">
-            <div class="am-btn-group am-btn-group-xs">
-            <form action = "ApplicantServlet?action=getDic&use=poorDemand&go=add" method = "post">
-              <button type="submit" class="am-btn am-btn-default" id="addApplicantBtn" ><span class="am-icon-plus"></span> 新增</button>
-             </form>
-             <!-- <button type="button" class="am-btn am-btn-default" id="delApplicantBtn"><span class="am-icon-trash-o"></span> 删除</button> --> 
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- operation end -->
-
-      <!-- condition start -->
-      <div id="select">
-       <div class="am-u-sm-12 am-u-md-3">
-          <div class="user-condition">
-            <form action = "ApplicantServlet?action=select" method = "post">
-            <span > 姓名</span>
-            <input type="text" class="applicantName" name = "applicantName" value = "">
-            <span > 户籍所在地</span>
-            <input type="text" class="address" name = "applicantAddress" value = "">
-
-            <span > 受教育程度</span>
-            <select id="doc-select-1" name = "education">
-              <option value="">-=请选择一项=-</option>
-              <option value="小学">小学</option>
-              <option value="初中">初中</option>
-              <option value="大学">大学</option>
-            </select>
-
-            <button class="select-btn" type="submit">查询</button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <!-- condition end -->
-
-
+      <hr/>
 
       <div class="am-g">
-        <div class="am-u-sm-12">
-          <form class="am-form">
-
-            <!-- table start -->
-            <table class="am-table am-table-striped am-table-hover table-main">
-              <thead>
-              <tr>
-                <th class="table-check"><input type="checkbox" id="total-choose"/></th>
-                <th class="table-id">序号</th>
-                <th class="table-name">姓名</th>
-                <th class="table-gender">性别</th>
-                <th class="table-nation">民族</th>
-                <th class="table-address">户籍所在地</th>
-                <th class="table-address">受教育程度</th>
-                <th class="table-nation">联系方式</th>
-                <th class="table-set">操作</th>
-              </tr>
-              </thead>
-              <tbody>
-              <c:forEach var="applicant_list" items="${list}">
-              <tr>
-                <td><input type="checkbox" /><input type="hidden" name="applicantID" value="${applicant_list.applicantID }"></td>
-                <td>1</td>
-                <td>${applicant_list.applicantName }</td>
-                <td>${applicant_list.applicantSex }</td>
-                <td>${applicant_list.applicantNation }</td>
-                <td>${applicant_list.applicantAddress }</td>
-                <td>${applicant_list.education }</td>
-                <td>${applicant_list.applicantPhone }</td>
-                <td>
-                 
-                      <a href="<%=basePath%>ApplicantServlet?action=select&applicantID=${applicant_list.applicantID}&go=detail">详情</a>
-                      <a href="<%=basePath%>ApplicantServlet?action=select&applicantID=${applicant_list.applicantID}&go=update">修改</a>
-                      <a href="<%=basePath%>ApplicantServlet?action=delete&applicantID=${applicant_list.applicantID}">删除</a>
-                   
-                </td>
-              </tr>
-              </c:forEach>
-              
-
-              </tbody>
-            </table>
-
-            <!-- table end -->
-
-            <!-- page start -->
-            <div class="am-cf">
-              共  ${totalRecords} 条记录
-              <div class="am-fr">
-                <ul class="am-pagination">
-                  <li><a href="<%=basePath%>ApplicantServlet?action=select&currentPage=1">首页</a></li>
-                  <li><a href="<%=basePath%>ApplicantServlet?action=select&currentPage=${currentPage-1}">上一页</a></li>
-                  <li><a href="<%=basePath%>ApplicantServlet?action=select&currentPage=${currentPage+1}">下一页</a></li>
-                  <li><a href="<%=basePath%>ApplicantServlet?action=select&currentPage=${totalRecords/10+1}">尾页</a></li>
-                </ul>
+        <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+          <div class="am-panel am-panel-default">
+            <div class="am-panel-bd">
+              <div class="am-g">
+                <div class="am-u-md-4">
+                  <img class="right-logo" id="right-logo" src="<%=basePath%>/img/pic4.png" alt=""/>
+                </div>
               </div>
             </div>
-            <!-- page end -->
+          </div>
+
+          <div class="am-panel am-panel-default">
+            <div class="am-panel-bd">
+              <div class="user-info">
+                <p>100%推进</p>
+                <div class="am-progress am-progress-sm">
+                  <div class="am-progress-bar am-progress-bar-success" style="width: 100%"></div>
+                </div>
+                <p class="user-info-order">聚力扶贫攻坚,推进民生工程</p>
+              </div>
+               <div class="user-info">
+                <p>100%落实</p>
+                <div class="am-progress am-progress-sm">
+                  <div class="am-progress-bar" style="width: 100%"></div>
+                </div>
+                <p class="user-info-order">瞄准扶贫开发对象,全面落实扶贫政策</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+          <form class="am-form am-form-horizontal" action = "SelectionNotesServlet?action=add" method = "post">
+
+            <div class="am-g am-margin-top">
+              <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                评选须知名称
+              </div>
+              <div class="am-u-sm-8 am-u-md-4">
+                <input type="text" class="am-input-sm" name = "notesName" value = "">
+              </div>
+              <div class="am-hide-sm-only am-u-md-6">发布单位+时间+名称</div>
+            </div>
+
+            <div class="am-g am-margin-top">
+              <div class="am-u-sm-4 am-u-md-2 am-text-right">
+               申请开始时间
+              </div>
+              <div class="am-u-sm-8 am-u-md-10">
+              
+                  <div class="am-form-group am-form-icon">
+                    <i class="am-icon-calendar"></i>
+                    <input class="am-form-field am-input-sm" name = "applyStartTime" value= "" type="text" style="width:230px" value="" onfocus="WdatePicker()">
+                  </div>
+                
+              </div>
+            </div>
+
+            <div class="am-g am-margin-top">
+              <div class="am-u-sm-4 am-u-md-2 am-text-right">
+               申请结束时间
+              </div>
+              <div class="am-u-sm-8 am-u-md-10" style="margin-top:0px">
+               
+                  <div class="am-form-group am-form-icon">
+                    <i class="am-icon-calendar"></i>
+                    <input class="am-form-field am-input-sm" name = "applyEndTime"  value = "" type="text" style="width:230px" value="" onfocus="WdatePicker()">
+                  </div>
+               
+              </div>
+            </div>
+
+            <div class="am-g am-margin-top-sm" id="id="editorSpace"">
+              <div class="am-u-sm-12 am-u-md-2 am-text-right admin-form-text">
+                内容描述
+              </div>
+              <div class="am-u-sm-12 am-u-md-10">
+                <textarea id="TextArea1" cols="20" rows="2" class="ckeditor" name = "applyContent"></textarea>
+                
+              </div>
+            </div>
+            <script type="text/javascript">CKEDITOR.appendTo( 'editorSpace' );</script>
+
+            <br/>
+            <!-- <div class="am-form-group">
+              <div class="am-u-sm-9 am-u-sm-push-3">
+                <button type="button" class="am-btn am-btn-primary">保存</button>
+              </div>
+            </div> -->
+             <div class="btn-selection-note-group">
+              <div class="am-form-group am-form-icon">
+                <button type="submit" id="btn-selection-add" class="am-btn am-btn-primary am-btn-xs">确认保存</button>
+                <button type="button" id="btn-selection-cancel"class="am-btn am-btn-primary am-btn-xs">重置</button>
+              </div>
+            </div>
+
           </form>
         </div>
 
+            
+          </form>
+        </div>
       </div>
     </div>
 
+    <footer class="admin-content-footer">
+      <hr>
+      <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+    </footer>
+
+  </div>
+  <!-- content end -->
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
 <footer>
   <hr>
-  <p class="am-padding-left">© 2016 AllMobilize, Inc. Licensed under MIT license.</p>
+  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
 </footer>
 
 <!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="../js/amazeui.ie8polyfill.min.js"></script>
+<script src="<%=basePath%>/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 
 <!--[if (gte IE 9)|!(IE)]><!-->
@@ -235,11 +250,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="<%=basePath%>/js/jquery.min.js"></script>
 <!--<![endif]-->
 <script src="<%=basePath%>/js/amazeui.min.js"></script>
+
 <script src="<%=basePath%>/js/app.js"></script>
 <script src="<%=basePath%>/js/hss/logout.js"></script>
-<script src="<%=basePath%>/js/hss/table.js"></script>
 
-
-</script>
   </body>
 </html>
