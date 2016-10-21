@@ -58,17 +58,17 @@ public class PovertyMeasureSevlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		String main=request.getParameter("main");
 
-		if(main.equals("EditStart")){
-			EditStart(request, response);			
-		}else if(main.equals("edit")){
-			edit(request,response);
-		}else if(main.equals("List")){
-			list(request,response);
-		}else if(main.equals("Det")){
-			det(request, response);
-		}else if(main.equals("delete")){
-			delete(request, response);
-		}
+//		if(main.equals("EditStart")){
+//			EditStart(request, response);			
+//		}else if(main.equals("edit")){
+//			edit(request,response);
+//		}else if(main.equals("List")){
+//			list(request,response);
+//		}else if(main.equals("Det")){
+//			det(request, response);
+//		}else if(main.equals("delete")){
+//			delete(request, response);
+//		}
 	}
 	
 

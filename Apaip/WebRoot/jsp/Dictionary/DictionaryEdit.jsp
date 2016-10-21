@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+    <%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 
 <!doctype html>
 <html class="no-js">
@@ -12,15 +17,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <link rel="icon" type="../image/png" href="../i/favicon.png">
-  <link rel="apple-touch-icon-precomposed" href="../i/app-icon72x72@2x.png">
+  <link rel="icon" type="../image/png" href="<%=basePath %>i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="<%=basePath %>i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-  <link rel="stylesheet" href="../css/amazeui.min.css"/>
-  <link rel="stylesheet" href="../css/admin.css">
-  <link rel="stylesheet" href="../css/hss/picture.css">
-  <link rel="stylesheet" href="../css/hss/detail.css">
-  <script type="text/javascript" src="../plugin//My97DatePicker/WdatePicker.js"></script>
-  <script type="text/javascript" src="../plugin/ckeditor/ckeditor.js"></script>
+  <link rel="stylesheet" href="<%=basePath %>css/amazeui.min.css"/>
+  <link rel="stylesheet" href="<%=basePath %>css/admin.css">
+  <link rel="stylesheet" href="<%=basePath %>css/hss/picture.css">
+  <link rel="stylesheet" href="<%=basePath %>css/hss/detail.css">
+  <script type="text/javascript" src="<%=basePath %>plugin//My97DatePicker/WdatePicker.js"></script>
+  <script type="text/javascript" src="<%=basePath %>plugin/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -59,7 +64,7 @@
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-three'}"><span class="am-icon-table"></span> 后台管理</a></li>
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav-three">
             <li><a href="user-table.html" class="am-cf"><span class="am-icon-check"></span> 用户管理<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a href="dictionary-table.html"><span class="am-icon-check"></span> 字典管理</a></li>
+            <li><a href="<%=basePath%>DictionaryServlet?main=List"><span class="am-icon-check"></span> 字典管理</a></li>
           </ul>
 
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-one'}"><span class="am-icon-table"></span> 精确识别</a></li>
@@ -155,7 +160,7 @@
                 字典名称
               </div>
               <div class="am-u-sm-8 am-u-md-4">
-                <input type="text" class="am-input-sm" value="${Dictionary.dicName}">
+                <input type="text" class="am-input-sm" name = "dicName" value="${Dictionary.dicName}">
               </div>
               <div class="am-hide-sm-only am-u-md-6"></div>
             </div>
@@ -165,12 +170,18 @@
                 字典类型
               </div>
               <div class="am-u-sm-8 am-u-md-4" class="am-input-sm">
-                <select id="marriage" >
-                    <option value="option1">数据字典</option>
-                    <option value="option2">计划状态</option>
-                    <option value="option3">婚姻状态</option>
-                    <option value="option4">教育水平</option>
-                    <option value="option5">贫困等级</option>
+                <select id="marriage" name = "dicType">
+                  <option value="">---请选择---</option>
+                        <c:forEach items="${dicType}" var="type">
+						<c:choose>
+						<c:when test="${type eq Dictionary.dicType}">
+						<option value="${type}" selected>${type}</option>
+						</c:when>
+						<c:otherwise>
+						<option value="${type}">${type}</option>
+						</c:otherwise>
+						</c:choose>
+						</c:forEach>	
                   </select>
               </div>
               <div class="am-hide-sm-only am-u-md-6"></div>
@@ -184,7 +195,7 @@
               </div>
 
               <div class="am-u-sm-8 am-u-md-4">
-                <textarea id="doc-vld-ta-2" minlength="10" maxlength="200" style="width:500px">${Dictionary.dicDescription}</textarea>
+                <textarea id="doc-vld-ta-2" minlength="10" maxlength="200" style="width:500px" name = "dicDescription">${Dictionary.dicDescription}</textarea>
               </div>
               <div class="am-hide-sm-only am-u-md-6"></div>
             </div>
@@ -198,8 +209,8 @@
             </div> -->
              <div class="btn-selection-note-group">
               <div class="am-form-group am-form-icon">
-                <button type="button" id="btn-selection-add" class="am-btn am-btn-primary am-btn-xs">确认保存</button>
-                <button type="button" id="btn-selection-cancel"class="am-btn am-btn-primary am-btn-xs">重置</button>
+                <button type="submit" id="btn-selection-add" class="am-btn am-btn-primary am-btn-xs">确认保存</button>
+               
               </div>
             </div>
 

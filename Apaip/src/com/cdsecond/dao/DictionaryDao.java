@@ -25,10 +25,10 @@ public class DictionaryDao {
 	public static String getDicSql(String dicType,String dicDescription){
 		StringBuffer sql = new StringBuffer("select * from dictionary where 1=1");
 		if(!Tools.isEmpty(dicType)){
-			sql.append(" and dicName = '"+dicType+"'");
+			sql.append(" and dicName like '%"+dicType+"%'");
 		}
 		if(!Tools.isEmpty(dicDescription)){
-			sql.append(" and dicDescription like '"+Tools.getSelect(dicDescription)+"'");
+			sql.append(" and dicDescription like '%"+Tools.getSelect(dicDescription)+"%'");
 		}
 		return sql.toString();
 	}
@@ -107,10 +107,10 @@ public class DictionaryDao {
 	 * @return Teacher
 	 * @throws SQLException
 	 */
-	public static Dictionary getOneDictionary(int id) throws SQLException{
+	public static Dictionary getOneDictionary(String id) throws SQLException{
 		Connection con = DBUtil.getConnection();
 		Dictionary dic= new Dictionary();
-		String sql ="select * from Dictionary  dicID="+id;
+		String sql ="select * from Dictionary  dicID='"+id+"'";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 			pstmt=con.prepareStatement(sql);
@@ -142,17 +142,17 @@ public class DictionaryDao {
 	 */
 	public static boolean addDictionary(Dictionary dictionary) throws ClassNotFoundException, SQLException, IOException {
 		Connection con = null;	
-		int a;
+		
 		boolean result = false;
 		
 		PreparedStatement pstmt = null;
-		String sql = "insert into Dictionary(dicName,dicType,dicDescription) value(?,?,?)";
+		String sql = "insert into dictionary(dicName,dicType,dicDescription) values(?,?,?)";
 		String dicName = dictionary.getDicName();		//获取姓名
 		
 		String dicType = dictionary.getDicType();		//获取类型
 		
 		String dicDescriptionn = dictionary.getDicDescription();//获取描述
-		
+		System.out.println(dicDescriptionn);
 		con = MySqlConnection.getConnection();		//连接数据库
 		
 		pstmt = con.prepareStatement(sql);			//发送sql语句到数据库
@@ -163,10 +163,15 @@ public class DictionaryDao {
 				pstmt.setString(2,dicType);
 				
 				pstmt.setString(3, dicDescriptionn);
-				//执行sql语句
-				a=pstmt.executeUpdate();
-				result=(a==1)?true:false;
+				
 
+				//执行sql语句
+				
+				System.out.println(sql+"----------------");
+				
+				int a=pstmt.executeUpdate();
+				result=(a==1)?true:false;
+				System.out.println("---------"+a);
 				//关闭连接
 				MySqlConnection.close(null, pstmt, con);
 				return result;
@@ -198,7 +203,7 @@ public class DictionaryDao {
 			MySqlConnection.close(null, pstmt, con);
 			return result;
 		}
-	 public static List<String> getType(){
+	 public static List<String> getType() throws SQLException{
 		 Connection con = DBUtil.getConnection();
 			
 			String sql ="select dicType from Dictionary  ";
@@ -206,10 +211,11 @@ public class DictionaryDao {
 			ResultSet rs = null;
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
-			List <String> list;
-			while(rs.next){
+			List <String> list = new ArrayList();
+			while(rs.next()){
 				list.add(rs.getString("dicType"));
 			}
+			return list;
 	 }
 	 /**
 		 * 修改数据字典
@@ -255,4 +261,6 @@ public class DictionaryDao {
 			
 			return result;
 		}
+	 
+	
 }

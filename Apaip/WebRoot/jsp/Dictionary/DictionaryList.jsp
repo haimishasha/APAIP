@@ -15,12 +15,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <link rel="icon" type="../image/png" href="../i/favicon.png">
-  <link rel="apple-touch-icon-precomposed" href="../i/app-icon72x72@2x.png">
+  <link rel="icon" type="../image/png" href="<%=basePath %>i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="<%=basePath %>i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-  <link rel="stylesheet" href="../css/amazeui.min.css"/>
-  <link rel="stylesheet" href="../css/admin.css">
-   <link rel="stylesheet" href="../css/hss/table.css">
+  <link rel="stylesheet" href="<%=basePath %>css/amazeui.min.css"/>
+  <link rel="stylesheet" href="<%=basePath %>css/admin.css">
+   <link rel="stylesheet" href="<%=basePath %>css/hss/table.css">
    <script>
    	function click(number){
         	$("#pageIndex").val(number);
@@ -33,12 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		$("form").submit();
         	}
         }
- 			function add(){
-        	
-        	window.location.href="DictionaryServlet?main=EditStart";
-        	
-       		 }
-   
+ 			
    </script>
 </head>
 <body>
@@ -60,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      
       <li class="am-dropdown" data-am-dropdown>
         <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-          haosha
+          haoshasha
         </a>
       </li>
       <li class="am-hide-sm-only"><a href="javascript:;" id="layout">退出</span></a></li>
@@ -78,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-three'}"><span class="am-icon-table"></span> 后台管理</a></li>
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav-three">
             <li><a href="user-table.html" class="am-cf"><span class="am-icon-check"></span> 用户管理<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a href="dictionary-table.html"><span class="am-icon-check"></span> 字典管理</a></li>
+            <li><a href="<%=basePath%>DictionaryServlet?main=List"><span class="am-icon-check"></span> 字典管理</a></li>
           </ul>
 
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-one'}"><span class="am-icon-table"></span> 精确识别</a></li>
@@ -137,8 +132,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <div class="am-g">
         <div class="am-u-sm-12 am-u-md-6">
           <div class="am-btn-toolbar">
-            <div class="am-btn-group am-btn-group-xs">
-             <a href="javascript:add()">增加</a>
+             <div class="am-btn-group am-btn-group-xs">
+             <form action = "<%=basePath %>DictionaryServlet?main=EditStart" method = "post">
+              <button type="submit" class="am-btn am-btn-default" id="addDictionaryBtn" ><span class="am-icon-plus"></span> 新增</button>
+              </form>
               <button type="button" class="am-btn am-btn-default" id="delDictionaryBtn"><span class="am-icon-trash-o"></span> 删除</button>
             </div>
           </div>
@@ -205,8 +202,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <td class="am-hide-sm-only">${test.dicType}</td>
                 <td class="am-hide-sm-only">${test.dicDescription}</td>
                 <td>
-                   <td><a href="<%=basePath%>ActivityServlet?main=EditStart&id=${test.dicID}">修改</a></td>
-       				<td><a href="<%=basePath%>ActivityServlet?main=delete&id=${test.dicID}" >删除</a></td>
+                   <td><a href="<%=basePath%>DictionaryServlet?main=EditStart&id=${test.dicID}">修改</a></td>
+       				<td><a href="<%=basePath%>DictionaryServlet?main=delete&id=${test.dicID}" >删除</a></td>
                    
                 </td>
               </tr>
