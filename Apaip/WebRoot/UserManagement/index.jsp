@@ -177,7 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  
                       <a href="http://localhost:8080/Apaip/servlet?cmd=detail&username=${test1.userName }" >详情</a>
                       <a href="http://localhost:8080/Apaip/servlet?cmd=editforword&username=${test1.userName }">修改</a>
-                      <a href="http://localhost:8080/Apaip/servlet?cmd=editstatus&username=${test1.userName };">删除</a>
+                      <a href="http://localhost:8080/Apaip/servlet?cmd=editstatus&username=${test1.userName }">删除</a>
                    
                 </td>
               </tr>
