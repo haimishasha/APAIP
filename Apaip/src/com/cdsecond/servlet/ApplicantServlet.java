@@ -573,11 +573,8 @@ public class ApplicantServlet extends HttpServlet {
 		System.out.println(applicantDemand + "----------------");
 		
 		StringBuffer sf = new StringBuffer();
-		
 		String demand = null;
-		
 		try{
-		
 		for (int i = 0;i<applicantDemand.length;i++) {
 			
 			if(i<applicantDemand.length){
@@ -587,14 +584,12 @@ public class ApplicantServlet extends HttpServlet {
 				sf.append(applicantDemand[i]);
 			}
 			
-			demand = sf.toString();
 		}
+		
+		demand = sf.toString();
 		}catch(NullPointerException e) {
 			demand = null;
 		}
-		
-		
-		
 		
 	
 		Applicant applicant = new Applicant();
