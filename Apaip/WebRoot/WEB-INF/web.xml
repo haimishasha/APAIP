@@ -54,6 +54,13 @@
     <servlet-name>DictionaryServlet</servlet-name>
     <servlet-class>com.cdsecond.servlet.DictionaryServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.cdsecond.servlet.UserServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -70,6 +77,10 @@
   <servlet-mapping>
     <servlet-name>DictionaryServlet</servlet-name>
     <url-pattern>/DictionaryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/servlet</url-pattern>
   </servlet-mapping>
 
   

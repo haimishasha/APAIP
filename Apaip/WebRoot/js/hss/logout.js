@@ -5,7 +5,7 @@ $("#layout").click(function(){
 
 $("#addBtn").click(function(){
 
-	window.location="user-add.html";
+	window.location="http://localhost:8080/Apaip/UserManagement/adduser.jsp";
 });
 
 $("#addSelectionNotesBtn").click(function(){
