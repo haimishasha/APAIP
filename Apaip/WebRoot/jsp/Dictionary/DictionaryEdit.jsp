@@ -160,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 字典名称
               </div>
               <div class="am-u-sm-8 am-u-md-4">
-                <input type="text" class="am-input-sm" name = "dicName" value="${Dictionary.dicName}">
+                <input type="text" class="am-input-sm" name = "dicName" value="${dictionary.dicName}">
               </div>
               <div class="am-hide-sm-only am-u-md-6"></div>
             </div>
@@ -174,7 +174,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <option value="">---请选择---</option>
                         <c:forEach items="${dicType}" var="type">
 						<c:choose>
-						<c:when test="${type eq Dictionary.dicType}">
+						<c:when test="${type eq dictionary.dicType}">
 						<option value="${type}" selected>${type}</option>
 						</c:when>
 						<c:otherwise>
@@ -195,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               </div>
 
               <div class="am-u-sm-8 am-u-md-4">
-                <textarea id="doc-vld-ta-2" minlength="10" maxlength="200" style="width:500px" name = "dicDescription">${Dictionary.dicDescription}</textarea>
+                <textarea id="doc-vld-ta-2" minlength="10" maxlength="200" style="width:500px" name = "dicDescription">${dictionary.dicDescription}</textarea>
               </div>
               <div class="am-hide-sm-only am-u-md-6"></div>
             </div>

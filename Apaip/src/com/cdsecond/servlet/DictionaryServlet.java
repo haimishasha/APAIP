@@ -119,6 +119,7 @@ public class DictionaryServlet extends HttpServlet {
 		String ids = request.getParameter("id");
 		
 		
+		
 //		
 //		int id = 0;
 //		try{
@@ -133,15 +134,18 @@ public class DictionaryServlet extends HttpServlet {
 			if(!Tools.isEmpty(ids)){
 				dictionary = DictionaryDao.getOneDictionary(ids);
 				System.out.println(dictionary+"-------");
+				System.out.println(dictionary.getDicName());
 			
 				request.setAttribute("dictionary", dictionary);
 			}else{
-				request.getRequestDispatcher("jsp/Dictionary/DictionaryEdit.jsp").forward(request, response);
+				
 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			request.getRequestDispatcher("jsp/Dictionary/DictionaryEdit.jsp").forward(request, response);
 		}
 		
 	}

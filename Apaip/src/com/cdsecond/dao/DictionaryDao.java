@@ -25,10 +25,10 @@ public class DictionaryDao {
 	public static String getDicSql(String dicType,String dicDescription){
 		StringBuffer sql = new StringBuffer("select * from dictionary where 1=1");
 		if(!Tools.isEmpty(dicType)){
-			sql.append(" and dicName like '%"+dicType+"%'");
+			sql.append(" and dicName like '"+Tools.getSelect(dicType)+"'");
 		}
 		if(!Tools.isEmpty(dicDescription)){
-			sql.append(" and dicDescription like '%"+Tools.getSelect(dicDescription)+"%'");
+			sql.append(" and dicDescription like '"+Tools.getSelect(dicDescription)+"'");
 		}
 		return sql.toString();
 	}
@@ -109,14 +109,18 @@ public class DictionaryDao {
 	 */
 	public static Dictionary getOneDictionary(String id) throws SQLException{
 		Connection con = DBUtil.getConnection();
-		Dictionary dic= new Dictionary();
-		String sql ="select * from Dictionary  dicID='"+id+"'";
+		int ids = Integer.parseInt(id);
+		String sql ="select dicID,dicName,dicType,dicDescription from dictionary where dicID="+ids;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		System.out.println(sql);
 			pstmt=con.prepareStatement(sql);
 //			pstmt.setInt(1, id);
 			rs=pstmt.executeQuery();
+			Dictionary dic = null;
 			while(rs.next()){
+				dic= new Dictionary();
+
 				dic.setDicID(String.valueOf(rs.getInt("dicID")));
 				dic.setDicName(rs.getString("dicName"));
 				dic.setDicType(rs.getString("dicType"));
@@ -187,7 +191,7 @@ public class DictionaryDao {
 			Connection con = DBUtil.getConnection();
 			PreparedStatement pstmt = null;
 			boolean result = false;
-			String sql="delete dictionary  where dicID="+id;
+			String sql="delete from dictionary  where dicID="+id;
 			//连接数据库
 			con = MySqlConnection.getConnection();
 			
@@ -261,6 +265,10 @@ public class DictionaryDao {
 			
 			return result;
 		}
-	 
-	
+//	 public static void main(String[] args) throws SQLException {
+//		DictionaryDao  dd = new DictionaryDao();
+//		Dictionary d  =dd.getOneDictionary("1");	
+//		System.out.println(d.getDicName());
+//		}
+//	
 }

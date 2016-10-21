@@ -154,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <button class="select-btn" type="button">查询</button> -->
             <form class="am-topbar-form am-topbar-left am-form-inline am-topbar-right" role="search" method="post" action="<%=basePath%>DictionaryServlet?main=List">
               <div class="am-form-group">
-                <input type="text" class="am-form-field am-input-sm" placeholder="类型搜索" name="type" value="${Dictionary.dicType }">
+                <input type="text" class="am-form-field am-input-sm" placeholder="类型搜索" name="type" value="${Dictionary.dicType}">
                  <input type="text" class="am-form-field am-input-sm" placeholder="描述搜索" name="description" value="${Dictionary.dicDescription}">
             
               </div>
