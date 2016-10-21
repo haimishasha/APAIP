@@ -69,7 +69,7 @@ public class SelectionNotesDao {
 		pstmt = con.prepareStatement(sql);
 		
 		//为占位符赋值
-		pstmt.setInt(1, Integer.parseInt(notesName));
+		pstmt.setString(1, notesName);
 		
 		pstmt.setString(2, applyTime);
 		
@@ -138,7 +138,7 @@ public class SelectionNotesDao {
 			
 			selectionNotes.setSelectionNotesID(String.valueOf(rs.getInt("selectionNotesID")));
 			
-			selectionNotes.setNotesName(String.valueOf(rs.getInt("notesName")));
+			selectionNotes.setNotesName(rs.getString("notesName"));
 			
 			selectionNotes.setApplyTime(rs.getString("applyTime"));
 			
