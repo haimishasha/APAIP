@@ -218,7 +218,8 @@ public class DictionaryServlet extends HttpServlet {
 		String DictionaryType = request.getParameter("type");
 		String DictionaryDescription = request.getParameter("description");
 		Dictionary d = new Dictionary();
-		d.setDicName(DictionaryType);
+		d.setDicType(DictionaryType);
+	
 		d.setDicDescription(DictionaryDescription);
 		request.setAttribute("Dictionary",d);
 		List<Dictionary> list = DictionaryDao.allDic(Page, DictionaryDao.getDicSql(DictionaryType, DictionaryDescription));

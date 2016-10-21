@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-three'}"><span class="am-icon-table"></span> 后台管理</a></li>
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav-three">
             <li><a href="user-table.html" class="am-cf"><span class="am-icon-check"></span> 用户管理<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a href="dictionary-table.html"><span class="am-icon-check"></span> 字典管理</a></li>
+            <li><a href="<%=basePath%>DictionaryServlet?main=List"><span class="am-icon-check"></span> 字典管理</a></li>
           </ul>
 
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-one'}"><span class="am-icon-table"></span> 精确识别</a></li>

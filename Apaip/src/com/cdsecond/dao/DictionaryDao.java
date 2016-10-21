@@ -25,11 +25,13 @@ public class DictionaryDao {
 	public static String getDicSql(String dicType,String dicDescription){
 		StringBuffer sql = new StringBuffer("select * from dictionary where 1=1");
 		if(!Tools.isEmpty(dicType)){
-			sql.append(" and dicName like '"+Tools.getSelect(dicType)+"'");
+			sql.append(" and dicType like '"+Tools.getSelect(dicType)+"'");
 		}
 		if(!Tools.isEmpty(dicDescription)){
 			sql.append(" and dicDescription like '"+Tools.getSelect(dicDescription)+"'");
 		}
+		
+		
 		return sql.toString();
 	}
 	/**
@@ -265,10 +267,5 @@ public class DictionaryDao {
 			
 			return result;
 		}
-//	 public static void main(String[] args) throws SQLException {
-//		DictionaryDao  dd = new DictionaryDao();
-//		Dictionary d  =dd.getOneDictionary("1");	
-//		System.out.println(d.getDicName());
-//		}
-//	
+
 }

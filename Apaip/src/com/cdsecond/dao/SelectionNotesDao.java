@@ -250,11 +250,25 @@ public class SelectionNotesDao {
 		
 		String applyContent = selectionNotes.getApplyContent();
 		
-		String sql = "update selection_notes set notesName = '" + notesName + "',"
-				+ "applyTime = '" + applyTime + "', applyPerson = '" + applyPerson 
-				+ "', applyStartTime = '" + applyStartTime + "', applyEndTime = '"+ applyEndTime
-				+"', applyContent  = '" + applyContent + "' where selectionNotesID = '"
-						+ selectionNotesID + "' ";
+		String sql  = null;
+		
+		if(IsEmpty.isEmpty(applyStartTime)||IsEmpty.isEmpty(applyEndTime)){
+			 sql = "update selection_notes set notesName = '" + notesName + "',"
+					+ "applyTime = '" + applyTime + "', applyPerson = '" + applyPerson 
+					+ "', applyStartTime = null, applyEndTime = null, applyContent  = '"
+					+ applyContent + "' where selectionNotesID = '"
+							+ selectionNotesID + "' ";
+		}else{
+			
+			 sql = "update selection_notes set notesName = '" + notesName + "',"
+					+ "applyTime = '" + applyTime + "', applyPerson = '" + applyPerson 
+					+ "', applyStartTime = '" + applyStartTime + "', applyEndTime = '"+ applyEndTime
+					+"', applyContent  = '" + applyContent + "' where selectionNotesID = '"
+							+ selectionNotesID + "' ";
+			
+		}
+		
+		
 		
 		System.out.println(sql);
 		

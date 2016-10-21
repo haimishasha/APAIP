@@ -184,11 +184,11 @@ public class SelectionNotesServlet extends HttpServlet {
 				
 
 				
-			}
+			}else{
 			
 			
 			request.getRequestDispatcher("jsp/ApplicantInfo/selection-notes-table.jsp").forward(request, response); 
-			
+			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

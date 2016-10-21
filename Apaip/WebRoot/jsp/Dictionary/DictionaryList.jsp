@@ -78,8 +78,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         <li><a href="#" data-am-collapse="{target: '#collapse-nav-one'}"><span class="am-icon-table"></span> 精确识别</a></li>
           <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav-one">
-            <li><a href="selection-notes-table.html" class="am-cf"><span class="am-icon-check"></span> 申请评选须知<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a href="applicant-table.html"><span class="am-icon-check"></span> 申请人信息管理</a></li>
+            <li><a href="<%=basePath %>SelectionNotesServlet?action=select" class="am-cf"><span class="am-icon-check"></span> 申请评选须知<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a href="<%=basePath %>ApplicantServlet?action=select"><span class="am-icon-check"></span> 申请人信息管理</a></li>
             <li><a href="poverty-table.html"><span class="am-icon-check"></span> 识别贫困户</a></li>
           </ul>
         <li><a href="#" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-pencil-square-o"></span> 精确管理</a></li>

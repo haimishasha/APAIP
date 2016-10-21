@@ -85,30 +85,31 @@ public class ApplicantServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		System.out.println(action+"-------------");
+		PrintWriter out = response.getWriter();
 		
 		if(action.equals("add")) {
-			addApplicant(request, response);
+			addApplicant(request, response,out);
 		}
 		
 		if(action.equals("delete")) {
-			deleteApplicant(request,response);
+			deleteApplicant(request,response,out);
 		}
 		
 		if(action.equals("select")) {
-			selectApplicant(request,response);
+			selectApplicant(request,response,out);
 		}
 		
 		if(action.equals("update")) {
-			updateApplicant(request,response);
+			updateApplicant(request,response,out);
 		}
 		
 		if(action.equals("getDic")) {
-			selectDictionary(request, response);
+			selectDictionary(request, response,out);
 		}
 		
 		
 		
-		PrintWriter out = response.getWriter();
+		
 		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">");
 		out.println("<HTML>");
 		out.println("  <HEAD><TITLE>A Servlet</TITLE></HEAD>");
@@ -124,7 +125,7 @@ public class ApplicantServlet extends HttpServlet {
 
 	
 	private void updateApplicant(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,PrintWriter out) {
 		
 		String applicantID = request.getParameter("applicantID");
 		
@@ -246,13 +247,6 @@ public class ApplicantServlet extends HttpServlet {
 		
 		applicant.setApplicantDemand(demand);
 		
-		PrintWriter out = null;
-		try {
-			out = response.getWriter();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		
 		try {
 			if(ApplicantService.updateApplicant(applicant)){
@@ -269,14 +263,20 @@ public class ApplicantServlet extends HttpServlet {
 				
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		}
 		
 		
@@ -284,15 +284,9 @@ public class ApplicantServlet extends HttpServlet {
 
 	@SuppressWarnings("unused")
 	private void selectApplicant(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,PrintWriter out) {
 		
-		PrintWriter out = null;
-		try {
-			out = response.getWriter();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	
 		
 		int currentPage = 0;
 		
@@ -430,7 +424,7 @@ public class ApplicantServlet extends HttpServlet {
 					
 					request.setAttribute("applicant", applicant2);
 					
-					selectDictionary(request, response);
+					selectDictionary(request, response,out);
 				}else{
 				
 				request.getRequestDispatcher("jsp/ApplicantInfo/applicant-table.jsp").forward(request, response);
@@ -448,19 +442,30 @@ public class ApplicantServlet extends HttpServlet {
 			
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		}catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		}catch(NullPointerException e){
-			System.out.println("kongzhizhen");
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		}
 		
 		
@@ -468,7 +473,7 @@ public class ApplicantServlet extends HttpServlet {
 	}
 
 	public void deleteApplicant(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response, PrintWriter out) {
 		
 		String applicantID = request.getParameter("applicantID");
 		
@@ -479,7 +484,7 @@ public class ApplicantServlet extends HttpServlet {
 				
 			}else{
 				
-				PrintWriter out = response.getWriter();
+			
 				
 				out.print("<script>alert('删除失败')</script>");
 				out.flush();
@@ -487,14 +492,20 @@ public class ApplicantServlet extends HttpServlet {
 				
 			}
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		}
 		
 		
@@ -502,13 +513,11 @@ public class ApplicantServlet extends HttpServlet {
 	
 	
 
-	public void addApplicant(HttpServletRequest request, HttpServletResponse response)
+	public void addApplicant(HttpServletRequest request, HttpServletResponse response,PrintWriter out)
 			throws ServletException, IOException {
 		
 		System.out.println("sdsdsdfsfsf------------------");
 		
-		
-		PrintWriter out = response.getWriter();
 		
 		String applicantName = request.getParameter("applicantName");
 		
@@ -661,7 +670,7 @@ public class ApplicantServlet extends HttpServlet {
 	
 	
 	public void selectDictionary(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,PrintWriter out) {
 		
 		System.out.println("------------------------------");
 		
@@ -700,17 +709,25 @@ public class ApplicantServlet extends HttpServlet {
 			
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		}catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			out.println("<script>window.location='html/404.html'</script>");
+			out.flush();
+			out.close();
 		}
 		
 		
