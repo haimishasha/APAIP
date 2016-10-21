@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <link rel="stylesheet" href="<%=basePath %>/css/hss/picture.css">
   <script type="text/javascript" src="<%=basePath %>/plugin//My97DatePicker/WdatePicker.js"></script>
   <script type="text/javascript" src="<%=basePath %>/plugin/ckeditor/ckeditor.js"></script>
-
+  
 
   </head>
   
@@ -153,13 +153,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
 
         <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
-        <c:forEach var="applicant_list" items="${list}">
-          <form class="am-form am-form-horizontal" action = "ApplicantServlet?action=update&applicantID=${applictant_list.applicantID }" method = "post">
+       
+          <form class="am-form am-form-horizontal" action = "ApplicantServlet?action=update" method = "post">
 			
+			<div class="am-form-group">
+              
+              <div class="am-u-sm-9">
+                <input type="hidden" id="applicantID"  name = "applicantID" value = "${applicant.applicantID }">
+              </div>
+            </div>
             <div class="am-form-group">
               <label for="applicantName" class="am-u-sm-3 am-form-label">姓名</label>
               <div class="am-u-sm-9">
-                <input type="text" id="applicantName"  name = "applicantName" value = "${applicant_list.applicantName }" placeholder="输入你的真实姓名">
+                <input type="text" id="applicantName"  name = "applicantName" value = "${applicant.applicantName }" placeholder="输入你的真实姓名">
               </div>
             </div>
 
@@ -167,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <label for="applicantSex"class="am-u-sm-3 am-form-label">性别</label>
               <div class="am-u-sm-9">
               <c:choose>
-						<c:when test="${applicant_list.applicantSex eq '男' }">
+						<c:when test="${applicant.applicantSex eq '男' }">
 							<label class="am-radio-inline">
                   				<input type="radio" name="applicantSex" value = "男" checked> 男
                				 </label>
@@ -191,25 +197,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="am-form-group">
               <label for="applicantNation" class="am-u-sm-3 am-form-label">民族</label>
               <div class="am-u-sm-9">
-                <input type="text" id="applicantNation" name = "applicantNation" value = "${applicant_list.applicantNation }" placeholder="民族信息">
+                <input type="text" id="applicantNation" name = "applicantNation" value = "${applicant.applicantNation }" placeholder="民族信息">
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="applicantAddress" class="am-u-sm-3 am-form-label">户籍所在地</label>
               <div class="am-u-sm-9">
-                <input type="text" id="applicantAddress" name = "applicantAddress" value = "${applicant_list.applicantAddress }" placeholder="输入你的户籍所在地">
+                <input type="text" id="applicantAddress" name = "applicantAddress" value = "${applicant.applicantAddress }" placeholder="输入你的户籍所在地">
               </div>
             </div>
 
              <div class="am-form-group">
                 <label for="education" class="am-u-sm-3 am-form-label">受教育情况</label>
                 <div class="am-u-sm-9">
-                	<select id="education" name="education" style="width:494px margin-left">
-						<option value="">----请选择----</option>
-						<c:forEach items="${dictionary_list.education }" var="education">
+                	<select id="education" name="education" style="width:494px margin-left" onchange = "getDic()">
+						<c:forEach items="${education }" var="education">
 							<c:choose>
-								<c:when test="${applicant_list.education eq education.dicName }">
+								<c:when test="${applicant.education eq education.dicName}">
 									<option value="${education.dicName }" selected >${education.dicName }</option>
 								</c:when>
 								<c:otherwise>
@@ -227,10 +232,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <div class="am-u-sm-9">
                 
                 <select id="marriage" name = "marriage" style="width:494px margin-left">
-						<option value="">----请选择----</option>
-						<c:forEach items="${dictionary_list.marriage }" var="marriage">
+						<c:forEach items="${marriage }" var="marriage">
 							<c:choose>
-								<c:when test="${applicant_list.marriage eq marriage.dicName }">
+								<c:when test="${applicant.marriage eq marriage.dicName }">
 									<option value="${marriage.dicName }" selected >${marriage.dicName }</option>
 								</c:when>
 								<c:otherwise>
@@ -246,14 +250,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="am-form-group">
               <label for="applicantIdNumber" class="am-u-sm-3 am-form-label">身份证号</label>
               <div class="am-u-sm-9">
-                <input type="text" id="applicantIdNumber" name = "applicantIdNumber" value = "${applicant_list.applicantIdNumber }" placeholder="输入你的身份证号">
+                <input type="text" id="applicantIdNumber" name = "applicantIdNumber" value = "${applicant.applicantIdNumber }" placeholder="输入你的身份证号">
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="applicantPhone" class="am-u-sm-3 am-form-label">联系方式</label>
               <div class="am-u-sm-9">
-                <input type="tel" id="applicantPhone" name = "applicantPhone" value = "${applicant_list.applicantPhone }" placeholder="输入你的联系方式">
+                <input type="tel" id="applicantPhone" name = "applicantPhone" value = "${applicant.applicantPhone }" placeholder="输入你的联系方式">
               </div>
             </div>
 
@@ -261,96 +265,79 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-form-group">
               <label for="applicantDisabilityNumber" class="am-u-sm-3 am-form-label">残疾证号</label>
               <div class="am-u-sm-9">
-                <input type="text" id="applicantDisabilityNumber" name = "applicantDisabilityNumber" value = "${applicant_list.applicantDisabilityNumber }"  placeholder="输入你的残疾证号">
+                <input type="text" id="applicantDisabilityNumber" name = "applicantDisabilityNumber" value = "${applicant.applicantDisabilityNumber }"  placeholder="输入你的残疾证号">
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="applicantDisablityCondition" " class="am-u-sm-3 am-form-label">残疾情况</label>
               <div class="am-u-sm-9">
-                <input type="text" id="applicantDisablityCondition" name = "applicantDisablityCondition" value = "${applicant_list.applicantDisablityCondition }placeholder="残疾情况">
+                <input type="text" id="applicantDisablityCondition" name = "applicantDisablityCondition" value = "${applicant.applicantDisablityCondition }" placeholder="残疾情况">
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="applicantFamilyNumber" class="am-u-sm-3 am-form-label">家庭人数</label>
               <div class="am-u-sm-9">
-                <input type="text" id="applicantFamilyNumber" name = "applicantFamilyNumber" value = "${applicant_list.applicantFamilyNumber }" placeholder="家庭人数（单位人）">
+                <input type="text" id="applicantFamilyNumber" name = "applicantFamilyNumber" value = "${applicant.applicantFamilyNumber }" placeholder="家庭人数（单位人）">
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="houseArea" class="am-u-sm-3 am-form-label">家庭住房面积</label>
               <div class="am-u-sm-9">
-                <input type="text" id="houseArea" name = "houseArea" value = "${applicant_list.houseArea }" placeholder="家庭住房面积（单位平方米）">
+                <input type="text" id="houseArea" name = "houseArea" value = "${applicant.houseArea }" placeholder="家庭住房面积（单位平方米）">
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="applicantIncome" class="am-u-sm-3 am-form-label">家庭收入</label>
               <div class="am-u-sm-9">
-                <input type="text" id="applicantIncome" name = "applicantIncome" value = "${applicant_list.applicantIncome }"  placeholder="家庭收入（单位元）">
+                <input type="text" id="applicantIncome" name = "applicantIncome" value = "${applicant.applicantIncome }"  placeholder="家庭收入（单位元）">
               </div>
             </div>
 
             <div class="am-form-group">
               <label for="applicationTime" class="am-u-sm-3 am-form-label">申请时间</label>
               <div class="am-u-sm-9">
-                 <input type="text" name = "applicationTime" value="${applicant_list.applicationTime }" onfocus="WdatePicker()" placeholder="请输入申请时间">
+                 <input type="text" name = "applicationTime" value="${applicant.applicationTime }" onfocus="WdatePicker()" placeholder="请输入申请时间">
               </div>
             </div>
 
              <div class="am-form-group">
               <label for="bankCardNumber" class="am-u-sm-3 am-form-label">银行卡号</label>
               <div class="am-u-sm-9">
-                <input type="text" id="bankCardNumber" name = "bankCardNumber" value = "${applicant_list.bankCardNumber }" placeholder="请输入银行卡号">
+                <input type="text" id="bankCardNumber" name = "bankCardNumber" value = "${applicant.bankCardNumber }" placeholder="请输入银行卡号">
               </div>
             </div>
 
             <div class="am-form-group" id="editorSpace">
                 <label for="bankCardNumber" class="am-u-sm-3 am-form-label">需求情况</label> 
                 <div class="am-u-sm-9">
-                 
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求1" name="docVlCb"> 需求1
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求2" name="docVlCb"> 需求2
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求3" name="docVlCb"> 需求3
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求4" name="docVlCb"> 需求4
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求5" name="docVlCb"> 需求5
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求6" name="docVlCb"> 需求6
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求7" name="docVlCb"> 需求7
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求8" name="docVlCb"> 需求8
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求9" name="docVlCb"> 需求9
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求10" name="docVlCb"> 需求10
-                      </label>
+                
+                
+                	
+               
+                     <c:forEach items="${demandList }" var="demand">
+							<c:choose>
+								<c:when test="${demand[i] eq poorDemandList.demandName }">
+                        			<input type="checkbox" value="${poorDemandList.demandName }" name="docVlCb" checked> ${poorDemandList.demandName }
+								</c:when>
+								<c:otherwise>
+                       				 <input type="checkbox" value="${poorDemandList.demandName }" name="docVlCb"> ${poorDemandList.demandName }
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
                  </div>            
             </div>
 
             <div class="am-form-group" id="editorSpace">
                 <label for="bankCardNumber" class="am-u-sm-3 am-form-label">申请理由</label> 
                 <div class="am-u-sm-9">
-                  <textarea id="applicantReason" name = "applicantReason" value = "${applicant_list.applicantReason } " cols="20" rows="2" class="ckeditor"></textarea>
+                  <textarea id="applicantReason" name = "applicantReason"  cols="20" rows="2" class="ckeditor">${applicant.applicantReason }</textarea>
                  </div>            
             </div>
-			</c:forEach>
+			
             <div class="am-form-group">
               <div class="am-u-sm-9 am-u-sm-push-3">
                 <button type="submit" class="am-btn am-btn-primary">保存</button>

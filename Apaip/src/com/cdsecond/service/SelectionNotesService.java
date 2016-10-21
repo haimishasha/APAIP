@@ -25,6 +25,8 @@ public class SelectionNotesService {
 		
 		flag = dao.addSelectionNotes(selectionNotes);
 		
+		System.out.println(flag + "=====================");
+		
 		return flag;
 	}
 
@@ -46,6 +48,8 @@ public class SelectionNotesService {
 		String s = dao.sqlStatement(selectionNotes);
 		
 		List<SelectionNotes> list = dao.selectSelectionNotes(s, currentPage);
+		
+		System.out.println(list);
 		
 		return list;
 	}

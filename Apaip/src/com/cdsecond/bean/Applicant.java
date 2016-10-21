@@ -48,6 +48,8 @@ public class Applicant {
 	private String bankCardNumber;		//银行卡号
 	
 	private String applicantReason;		//申请理由
+	
+	private String applicantDemand;
 
 	/**
 	 * 无参构造方法
@@ -61,8 +63,26 @@ public class Applicant {
 	 * 属性的set、get方法
 	 */
 
+	
+	
 	public String getApplicantID() {
 		return applicantID;
+	}
+
+	public String getApplicationTime() {
+		return applicationTime;
+	}
+
+	public void setApplicationTime(String applicationTime) {
+		this.applicationTime = applicationTime;
+	}
+
+	public String getApplicantDemand() {
+		return applicantDemand;
+	}
+
+	public void setApplicantDemand(String applicantDemand) {
+		this.applicantDemand = applicantDemand;
 	}
 
 	public void setApplicantID(String applicantID) {

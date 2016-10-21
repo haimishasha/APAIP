@@ -117,8 +117,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="am-u-sm-12 am-u-md-6">
           <div class="am-btn-toolbar">
             <div class="am-btn-group am-btn-group-xs">
-              <button type="button" class="am-btn am-btn-default" id="addApplicantBtn" ><span class="am-icon-plus"></span> 新增</button>
-              <button type="button" class="am-btn am-btn-default" id="delApplicantBtn"><span class="am-icon-trash-o"></span> 删除</button>
+            <form action = "ApplicantServlet?action=getDic&use=poorDemand&go=add" method = "post">
+              <button type="submit" class="am-btn am-btn-default" id="addApplicantBtn" ><span class="am-icon-plus"></span> 新增</button>
+             </form>
+             <!-- <button type="button" class="am-btn am-btn-default" id="delApplicantBtn"><span class="am-icon-trash-o"></span> 删除</button> --> 
             </div>
           </div>
         </div>
@@ -186,11 +188,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  
                       <a href="<%=basePath%>ApplicantServlet?action=select&applicantID=${applicant_list.applicantID}&go=detail">详情</a>
                       <a href="<%=basePath%>ApplicantServlet?action=select&applicantID=${applicant_list.applicantID}&go=update">修改</a>
-                      <a href="javascript:void();">删除</a>
+                      <a href="<%=basePath%>ApplicantServlet?action=delete&applicantID=${applicant_list.applicantID}">删除</a>
                    
                 </td>
               </tr>
               </c:forEach>
+              
 
               </tbody>
             </table>

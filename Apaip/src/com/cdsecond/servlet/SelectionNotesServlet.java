@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cdsecond.bean.SelectionNotes;
+import com.cdsecond.common.IsEmpty;
 import com.cdsecond.service.SelectionNotesService;
 
 @SuppressWarnings("serial")
@@ -122,15 +123,13 @@ public class SelectionNotesServlet extends HttpServlet {
 			currentPage = Integer.valueOf(request.getParameter("currentPage"));
 		}catch(NumberFormatException e) {
 			currentPage = 1;
+		}catch(NullPointerException e) {
+			currentPage = 1;
 		}
 		
 		String selectionNotesID = request.getParameter("selectionNotesID");
 		
 		String notesName = request.getParameter("notesName");
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
-		String applyTime = sdf.format(new Date());
 		
 		String applyPerson = request.getParameter("applyPerson");
 		
@@ -147,7 +146,7 @@ public class SelectionNotesServlet extends HttpServlet {
 		
 		selectionNotes.setNotesName(notesName);
 		
-		selectionNotes.setApplyTime(applyTime);
+
 		
 		selectionNotes.setApplyPerson(applyPerson);
 		
@@ -162,6 +161,34 @@ public class SelectionNotesServlet extends HttpServlet {
 			
 			request.setAttribute("list", list);
 			
+			request.setAttribute("currentPage", currentPage);
+			
+			String go = request.getParameter("go");
+			
+			if(!IsEmpty.isEmpty(selectionNotesID)){
+				
+				SelectionNotes selectionNotes2 = list.get(0);
+				
+				request.setAttribute("selectionNotes",selectionNotes2);
+				
+				
+				
+				if(go.equals("update")){
+					request.getRequestDispatcher("jsp/ApplicantInfo/selection-notes-update.jsp").forward(request, response); 
+
+				}
+				if(go.equals("detail")){
+					request.getRequestDispatcher("jsp/ApplicantInfo/selection-notes-detail.jsp").forward(request, response); 
+
+				}
+				
+
+				
+			}
+			
+			
+			request.getRequestDispatcher("jsp/ApplicantInfo/selection-notes-table.jsp").forward(request, response); 
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -169,6 +196,9 @@ public class SelectionNotesServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -179,7 +209,9 @@ public class SelectionNotesServlet extends HttpServlet {
 	private void updateSelectionNotes(HttpServletRequest request,
 			HttpServletResponse response) {
 		
-String selectionNotesID = request.getParameter("selectionNotesID");
+		System.out.println("****************************");
+		
+		String selectionNotesID = request.getParameter("selectionNotesID");
 		
 		String notesName = request.getParameter("notesName");
 		
@@ -191,7 +223,12 @@ String selectionNotesID = request.getParameter("selectionNotesID");
 		
 		String applyStartTime = request.getParameter("applyStartTime");
 		
+		
+		
 		String applyEndTime = request.getParameter("applyEndTime");
+		
+	
+		
 		
 		String applyContent = request.getParameter("applyContent");
 		
@@ -214,8 +251,15 @@ String selectionNotesID = request.getParameter("selectionNotesID");
 		
 		try {
 			if(SelectionNotesService.updateSelectionNotes(selectionNotes)) {
+				System.out.println("----------------------");
+				response.sendRedirect("SelectionNotesServlet?action=select");
+				//	request.getRequestDispatcher("SelectionNotesServlet?action=select").forward(request, response);
+				
 				
 			}else{
+				
+				request.getRequestDispatcher("SelectionNotesServlet?action=select&go=update&selectionNotesID="+selectionNotesID).forward(request, response);
+
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -227,6 +271,9 @@ String selectionNotesID = request.getParameter("selectionNotesID");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -236,8 +283,13 @@ String selectionNotesID = request.getParameter("selectionNotesID");
 		
 		try {
 			if(SelectionNotesService.deleteSelectionNotes(selectionNotesID)){
+				response.sendRedirect("SelectionNotesServlet?action=select");
+
+				
 				
 			}else{
+				
+
 				
 			}
 		} catch (ClassNotFoundException e) {
@@ -287,8 +339,13 @@ String selectionNotesID = request.getParameter("selectionNotesID");
 		try {
 			if(SelectionNotesService.addSelectionNotes(selectionNotes))	{
 				
-			}else{
+				response.sendRedirect("jsp/ApplicantInfo/selection-notes-add.jsp");
 				
+
+					
+			}else{
+				response.sendRedirect("jsp/ApplicantInfo/selection-notes-add.jsp");
+
 			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -299,8 +356,7 @@ String selectionNotesID = request.getParameter("selectionNotesID");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		} 
 		
 	}
 

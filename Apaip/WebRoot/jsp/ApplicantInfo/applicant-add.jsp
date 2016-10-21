@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -190,13 +191,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              <div class="am-form-group">
                 <label for="education" class="am-u-sm-3 am-form-label">受教育情况</label>
                 <div class="am-u-sm-9">
-                  <select id="education" name = "education" style="width:494px margin-left">
-                    <option value="其他">其他</option>
-                    <option value="小学">小学</option>
-                    <option value="初中">初中</option>
-                    <option value="高中">高中</option>
-                    <option value="大学">大学</option>
-                  </select>
+                  <select id="education" name="education" style="width:494px margin-left">
+						<option value="">----请选择----</option>
+						<c:forEach items="${education }" var="education">
+							<option value="${education.dicName }">${education.dicName }</option>
+						</c:forEach>
+					</select>
                   <span class="am-form-caret"></span>
                 </div>                
             </div>
@@ -204,10 +204,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-form-group">
                 <label for="marriage" class="am-u-sm-3 am-form-label">婚姻状况</label>
                 <div class="am-u-sm-9">
-                  <select id="marriage" name = "marriage" style="width:494px margin-left">
-                    <option value="已婚">已婚</option>
-                    <option value="未婚">未婚</option>
-                  </select>
+                   <select id="marriage" name = "marriage" style="width:494px margin-left">
+						<option value="">----请选择----</option>
+						<c:forEach items="${marriage }" var="marriage">
+							<option value="${marriage.dicName }">${marriage.dicName }</option>
+						</c:forEach>
+					</select>
                   <span class="am-form-caret"></span>
                 </div>                
             </div>
@@ -280,36 +282,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <label for="bankCardNumber" class="am-u-sm-3 am-form-label">需求情况</label> 
                 <div class="am-u-sm-9">
                  
+                      <c:forEach items="${poorDemandList }" var="poorDemandList">
                       <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求1" name="docVlCb"> 需求1
+                        <input type="checkbox" value="${poorDemandList.demandName }" name="applicantDemand"> ${poorDemandList.demandName }
                       </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求2" name="docVlCb"> 需求2
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求3" name="docVlCb"> 需求3
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求4" name="docVlCb"> 需求4
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求5" name="docVlCb"> 需求5
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求6" name="docVlCb"> 需求6
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求7" name="docVlCb"> 需求7
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求8" name="docVlCb"> 需求8
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求9" name="docVlCb"> 需求9
-                      </label>
-                      <label class="am-checkbox-inline">
-                        <input type="checkbox" value="需求10" name="docVlCb"> 需求10
-                      </label>
+                      </c:forEach>
                  </div>            
             </div>
 

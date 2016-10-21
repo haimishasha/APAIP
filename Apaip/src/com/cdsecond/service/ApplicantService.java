@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.cdsecond.bean.Applicant;
+import com.cdsecond.bean.Dictionary;
+import com.cdsecond.bean.PoorDemandItem;
 import com.cdsecond.common.GetTotalRecords;
 import com.cdsecond.dao.ApplicantDao;
 
@@ -52,6 +54,8 @@ public class ApplicantService {
 		
 		String s = dao.sqlStatement(applicant);
 		
+		System.out.println(s+"-----------service");
+		
 		List<Applicant> list = dao.selectApplicant(s, currentPage);
 		
 		return list;
@@ -76,6 +80,51 @@ public class ApplicantService {
 		
 		return totalPages;
 				
+	}
+	
+	public static List<Dictionary> getEducation() throws ClassNotFoundException, SQLException, IOException{
+		
+		
+		List<Dictionary> education =  null;
+		
+		
+		ApplicantDao dao = new ApplicantDao();
+		
+		
+		education = dao.getDictionary("education");
+		
+		return education;
+		
+	}
+	
+	public static List<Dictionary> getMarriage() throws ClassNotFoundException, SQLException, IOException{
+		
+		
+		List<Dictionary> marriage =  null;
+		
+		
+		ApplicantDao dao = new ApplicantDao();
+		
+		
+		marriage = dao.getDictionary("marriage");
+		
+		return marriage;
+		
+	}
+	
+	public static List<PoorDemandItem> getPoorDemandItem() throws ClassNotFoundException, SQLException, IOException{
+		
+		
+		List<PoorDemandItem> poorDemandList =  null;
+		
+		
+		ApplicantDao dao = new ApplicantDao();
+		
+		
+		poorDemandList = dao.getPoorDemandItem();
+		
+		return poorDemandList;
+		
 	}
 }
 

@@ -46,7 +46,8 @@ public class SelectionNotesDao {
 		
 		PreparedStatement pstmt  = null;
 		
-		String sql = "insert into selection_notes(notesName,applyTime,applyPerson,applyStartTime,applyEndTime,applyContent,applyStatus) values (?,str_to_date(?,'%Y-%m-%d'),?,str_to_date(?,'%Y-%m-%d'),str_to_date(?,'%Y-%m-%d'),?,?)";
+		String sql = "insert into selection_notes(notesName,applyTime,applyPerson,applyStartTime,applyEndTime,applyContent,"
+				+ "applyStatus) values (?,str_to_date(?,'%Y-%m-%d'),?,str_to_date(?,'%Y-%m-%d'),str_to_date(?,'%Y-%m-%d'),?,?)";
 		
 		//获取申请评选须知属性
 		String notesName = selectionNotes.getNotesName();
@@ -68,7 +69,7 @@ public class SelectionNotesDao {
 		pstmt = con.prepareStatement(sql);
 		
 		//为占位符赋值
-		pstmt.setString(1, notesName);
+		pstmt.setInt(1, Integer.parseInt(notesName));
 		
 		pstmt.setString(2, applyTime);
 		
@@ -82,6 +83,7 @@ public class SelectionNotesDao {
 		
 		pstmt.setInt(7, 1);
 		
+		System.out.println(sql);
 		//执行sql语句
 		pstmt.execute();
 		
@@ -114,7 +116,7 @@ public class SelectionNotesDao {
 		
 		String sql = "select selectionNotesID,notesName,applyTime,applyPerson,applyStartTime,applyEndTime,applyContent "
 				+ "from selection_notes where " + s + " order by selectionNotesID limit " 
-						+ (currentPage-1) + ", "+ currentPage + " ";;
+						+ (currentPage-1)*10 + ", "+ currentPage*10 + " ";;
 		
 		System.out.println(sql);
 		
@@ -134,7 +136,9 @@ public class SelectionNotesDao {
 			//定义申请评选须知
 			SelectionNotes selectionNotes = new SelectionNotes();
 			
-			selectionNotes.setNotesName(rs.getString("notesName"));
+			selectionNotes.setSelectionNotesID(String.valueOf(rs.getInt("selectionNotesID")));
+			
+			selectionNotes.setNotesName(String.valueOf(rs.getInt("notesName")));
 			
 			selectionNotes.setApplyTime(rs.getString("applyTime"));
 			
@@ -148,6 +152,8 @@ public class SelectionNotesDao {
 			
 			list.add(selectionNotes);
 		}
+		
+		System.out.println(list+"--------------------dao");
 		//返回评选须知列表
 		return list;
 	}
@@ -304,44 +310,6 @@ public class SelectionNotesDao {
 		return flag;
 	}
 	
-//	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-//		SelectionNotesDao dao = new SelectionNotesDao();
-//		
-//		System.out.println(GetTotalRecords.getTotalRecords("selection_notes"));
-//		
-//		boolean flag = dao.deleteSelectionNotes("1");
-//		
-//		System.out.println(flag);
-//		
-////		List<SelectionNotes> list = dao.selectSelectionNotes(" notesName like '%贫%'", 1);
-////		
-////		for(SelectionNotes selectionNotes:list) {
-////			System.out.println(selectionNotes.getNotesName());
-////			System.out.println(selectionNotes.getApplyContent());
-////		}
-//		
-////		SelectionNotes selectionNotes  = new SelectionNotes();
-////		
-////		selectionNotes.setNotesName("贫困户申请须知2");
-////		
-////		selectionNotes.setApplyTime("2016-10-19");
-////		
-////		selectionNotes.setApplyPerson("张三");
-////		
-////		selectionNotes.setApplyStartTime("2016-10-05");
-////		
-////		selectionNotes.setApplyEndTime("2016-10-25");
-////		
-////		selectionNotes.setApplyContent("贫困户今年申请每村5人");
-////		
-////		boolean flag = dao.updateSelectionNotes(selectionNotes);
-////		
-////		System.out.println(flag);
-//		
-////		boolean flag = dao.addSelectionNotes(selectionNotes);
-////		
-////		System.out.println(flag);
-//	}
-//	
+
 	
 }
